@@ -13,7 +13,7 @@
 </div>
 
 <script>
-    $(document).ready(function(){
+    $(window).on("load", function(){
         $("#txtCont").height($("#imgCont").height());
         $(window).resize(function() {
             $("#txtCont").height($("#imgCont").height());
