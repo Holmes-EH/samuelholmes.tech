@@ -19,7 +19,6 @@
             $("#txtCont").height($("#imgCont").height());
         });
     });
-        
     
 </script>
 
