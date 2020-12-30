@@ -1,7 +1,7 @@
 # My static website repo
 
-Deployed to [netlify] (https://www.netlify.com/).
-Visit it live [here] (https://samuelholmes.tech).
+Deployed to [netlify](https://www.netlify.com/).
+Visit it live [here](https://samuelholmes.tech).
 
 ## Getting Started with Create React App
 
