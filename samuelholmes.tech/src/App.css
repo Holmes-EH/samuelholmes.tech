@@ -1,38 +1,371 @@
-.App {
-  text-align: center;
+/*************************
+Author : Samuel Holmes
+Date : 2020-04-11
+Domain : samuelholmes.tech
+Version : 0.1
+**************************/
+
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;700&display=swap");
+
+:root {
+	--bright-yellow: rgb(255, 196, 12);
+	--ocre: rgb(251, 174, 33);
+	--dark-green: rgb(21, 114, 50);
+	--med-green: rgb(96, 186, 70);
+	--light-green: rgb(139, 195, 63);
+	--dark-gray: rgb(23, 23, 23);
+	--med-gray: rgb(49, 48, 49);
+	--light-gray: rgb(240, 240, 240);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+	box-sizing: border-box;
+}
+body {
+	font-family: "Quicksand", sans-serif;
+	margin: 0;
+	padding: 0;
+}
+img {
+	max-width: 100%;
+}
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+}
+a {
+	text-decoration: none;
+}
+.container {
+	max-width: 1300px;
+	margin-top: 1em;
+}
+/******************/
+/** Header Rules **/
+/******************/
+
+@keyframes glitch {
+	0% {
+		opacity: 1;
+	}
+	1% {
+		opacity: 0;
+	}
+	5% {
+		opacity: 1;
+	}
+	15% {
+		opacity: 0;
+	}
+	16% {
+		opacity: 1;
+	}
+	19% {
+		opacity: 0;
+	}
+	33% {
+		opacity: 1;
+	}
+	41% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	75% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+@keyframes switchOn {
+	0% {
+		transform: scale(1);
+	}
+	75% {
+		opacity: 1;
+		transform: scale(1);
+	}
+	80% {
+		opacity: 1;
+		transform: scale(0.85);
+	}
+	85% {
+		transform: scale(1);
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes slideUp {
+	0% {
+		height: 100vh;
+	}
+	100% {
+		height: 60px;
+	}
+}
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@media (prefers-color-scheme: light) {
+	body {
+		background-color: var(--light-green);
+		color: var(--dark-gray);
+	}
+	header {
+		background-color: var(--light-gray);
+	}
+	.LogoLine,
+	.LogoCircle {
+		fill: var(--dark-gray);
+		transition: all 0.3s ease;
+	}
+	.topLeftText h1,
+	.topRightText h1 {
+		color: var(--dark-gray);
+	}
+	.nav--visible {
+		background-color: var(--light-gray);
+	}
+	.nav-item {
+		color: var(--dark-gray);
+	}
+}
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: var(--med-gray);
+		color: var(--light-gray);
+	}
+	header {
+		background-color: var(--dark-gray);
+	}
+	.LogoLine,
+	.LogoCircle {
+		fill: var(--light-gray);
+		transition: all 0.3s ease;
+	}
+	.topLeftText h1,
+	.topRightText h1 {
+		color: var(--light-gray);
+	}
+	.nav--visible {
+		background-color: var(--dark-gray);
+	}
+	.nav-item {
+		color: var(--light-gray);
+	}
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+header {
+	width: 100%;
+	box-shadow: 1px 1px 2px var(--med-gray);
+	position: relative;
+	z-index: 10;
+}
+.slideUp {
+	height: 100vh;
+	transition: height 1.5s ease-out;
+	animation: slideUp 3s 3s forwards;
 }
 
-.App-link {
-  color: #61dafb;
+/** Burger toggle **/
+.nav-toggle {
+	cursor: pointer;
+	border: 0;
+	width: 4em;
+	height: 3em;
+	padding: 0em;
+	border-radius: 50%;
+	background: none;
+	color: var(--light-gray);
+	transition: opacity 250ms ease;
+	position: absolute;
+	right: 0;
+	animation: fadeIn 1s ease forwards;
+}
+.nav-toggle:focus > *,
+.nav-toggle:hover > *,
+.nav-toggle:focus > *:before,
+.nav-toggle:hover > *:before,
+.nav-toggle:focus > *:after,
+.nav-toggle:hover > *:after {
+	background: var(--ocre);
+}
+.hamburger {
+	width: 50%;
+	position: relative;
+	padding: 0;
+}
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+	transition: all 0.3s ease;
+	border-radius: 1em;
+	display: block;
+	margin: 0 auto;
+	height: 2px;
+	background: var(--light-gray);
+}
+.hamburger::before,
+.hamburger::after {
+	content: "";
+	width: 100%;
+}
+.hamburger::before {
+	transform: translateY(-7px);
+}
+.hamburger::after {
+	transform: translateY(5px);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/** Navigation link styling **/
+.nav {
+	visibility: hidden;
+	height: 0;
+	position: absolute;
+	width: 100%;
+}
+.nav--visible {
+	visibility: visible;
+	height: auto;
+	position: relative;
+}
+.nav-item--container {
+	list-style: none;
+	text-transform: uppercase;
+	text-align: center;
+	padding: 0;
+	padding-bottom: 0.5em;
+	margin: 0;
+}
+.nav-item {
+	padding: 0.5em;
+	transition: color 0.3s;
+	color: var(--light-gray);
+}
+.nav-item:hover,
+.nav-item:focus {
+	color: var(--ocre);
+}
+
+/* Logo Styling */
+.logoContainer {
+	display: flex;
+	max-width: 540px;
+	height: 60px;
+	margin: 0 auto;
+	padding: 1em;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+.topLeftText h1 {
+	text-transform: uppercase;
+	font-size: 1.3em;
+	margin: 0;
+	line-height: 80%;
+}
+.topRightText h1 {
+	font-size: 2.8em;
+	margin: 0;
+	line-height: 80%;
+}
+.topLogo {
+	opacity: 0;
+	max-height: 34px;
+	min-width: 34px;
+	animation: switchOn 1s linear 1s forwards;
+}
+
+.logoContainer:hover .LogoLine,
+.logoContainer:hover .LogoCircle {
+	fill: var(--ocre);
+}
+.samuel,
+.holmes,
+.T,
+.E,
+.C,
+.H {
+	opacity: 0;
+	animation-name: glitch;
+	animation-duration: 1.7s;
+	animation-fill-mode: forwards;
+	animation-delay: 2s;
+}
+.holmes {
+	animation-delay: 2.3s;
+	animation-direction: reverse;
+}
+.T {
+	animation-direction: reverse;
+}
+.E {
+	animation-delay: 2.7s;
+}
+.C {
+	animation-delay: 3s;
+	animation-direction: reverse;
+}
+.H {
+	animation-delay: 2.5s;
+	animation-direction: reverse;
+}
+.fadeIn {
+	opacity: 0;
+	animation: fadeIn 1s ease forwards;
+}
+.topHook {
+	display: block;
+	width: 300px;
+	margin: 0 auto;
+}
+.invisible {
+	display: none;
+}
+
+/****************** Top Hooks *****************/
+.hook {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto;
+}
+.hook img {
+	max-width: 200px;
+}
+.hook--text {
+	margin-left: 1em;
+}
+
+@media (min-width: 800px) {
+	.row {
+		flex-wrap: unset;
+	}
+	.nav-toggle {
+		display: none;
+	}
+	.nav {
+		opacity: 0;
+		position: absolute;
+		right: 3em;
+		height: unset;
+		width: unset;
+	}
+	.nav-item--container {
+		visibility: visible;
+		display: flex;
+		justify-content: space-between;
+		padding: 0;
+	}
 }
