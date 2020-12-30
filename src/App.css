@@ -40,8 +40,25 @@ a {
 }
 .container {
 	max-width: 1300px;
-	margin-top: 1em;
+	margin: 0 auto;
+	margin-top: 2em;
 }
+.flex {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+hr {
+	border: 0;
+	height: 1px;
+}
+footer {
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+}
+
 /******************/
 /** Header Rules **/
 /******************/
@@ -128,6 +145,7 @@ a {
 	.LogoLine,
 	.LogoCircle {
 		fill: var(--dark-gray);
+		stroke: var(--dark-gray);
 		transition: all 0.3s ease;
 	}
 	.topLeftText h1,
@@ -139,6 +157,32 @@ a {
 	}
 	.nav-item {
 		color: var(--dark-gray);
+	}
+	hr {
+		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0+0,1+50,0+100 */
+		background-image: -moz-linear-gradient(
+			left,
+			rgba(0, 0, 0, 0) 0%,
+			rgba(0, 0, 0, 1) 50%,
+			rgba(0, 0, 0, 0) 100%
+		); /* FF3.6-15 */
+		background-image: -webkit-linear-gradient(
+			left,
+			rgba(0, 0, 0, 0) 0%,
+			rgba(0, 0, 0, 1) 50%,
+			rgba(0, 0, 0, 0) 100%
+		); /* Chrome10-25,Safari5.1-6 */
+		background-image: linear-gradient(
+			to right,
+			rgba(0, 0, 0, 0) 0%,
+			rgba(0, 0, 0, 1) 50%,
+			rgba(0, 0, 0, 0) 100%
+		); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		filter: progid:DXImageTransform.Microsoft.gradient(
+            startColorstr='#00000000',
+            endColorstr='#00000000',
+            GradientType=1
+        ); /* IE6-9 */
 	}
 }
 @media (prefers-color-scheme: dark) {
@@ -152,6 +196,7 @@ a {
 	.LogoLine,
 	.LogoCircle {
 		fill: var(--light-gray);
+		stroke: var(--light-gray);
 		transition: all 0.3s ease;
 	}
 	.topLeftText h1,
@@ -163,6 +208,32 @@ a {
 	}
 	.nav-item {
 		color: var(--light-gray);
+	}
+	hr {
+		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0+0,1+50,0+100 */
+		background-image: -moz-linear-gradient(
+			left,
+			rgba(240, 240, 240, 0) 0%,
+			rgba(240, 240, 240, 1) 50%,
+			rgba(240, 240, 240, 0) 100%
+		); /* FF3.6-15 */
+		background-image: -webkit-linear-gradient(
+			left,
+			rgba(240, 240, 240, 0) 0%,
+			rgba(240, 240, 240, 1) 50%,
+			rgba(240, 240, 240, 0) 100%
+		); /* Chrome10-25,Safari5.1-6 */
+		background-image: linear-gradient(
+			to right,
+			rgba(240, 240, 240, 0) 0%,
+			rgba(240, 240, 240, 1) 50%,
+			rgba(240, 240, 240, 0) 100%
+		); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		filter: progid:DXImageTransform.Microsoft.gradient(
+            startColorstr='#00000000',
+            endColorstr='#00000000',
+            GradientType=1
+        ); /* IE6-9 */
 	}
 }
 
@@ -180,6 +251,7 @@ header {
 
 /** Burger toggle **/
 .nav-toggle {
+	display: none;
 	cursor: pointer;
 	border: 0;
 	width: 4em;
@@ -339,13 +411,21 @@ header {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin: 0 auto;
+	margin-bottom: 2em;
+	margin-right: 1em;
 }
-.hook img {
-	max-width: 200px;
+.hook svg {
+	max-width: 120px;
 }
 .hook--text {
 	margin-left: 1em;
+}
+.box {
+	border: 5px solid var(--ocre);
+	border-radius: 1em;
+	padding: 0 1em;
+	text-align: center;
+	margin-bottom: 2em;
 }
 
 @media (min-width: 800px) {

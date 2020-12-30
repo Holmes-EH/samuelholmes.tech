@@ -74,7 +74,7 @@ export class Header extends Component {
 					</ul>
 				</nav>
 				<button
-					className={`nav-toggle ${className}`}
+					className={`nav-toggle ${className} ${hiddenClass}`}
 					aria-label="open navigation"
 					onClick={this.toggleNav}
 				>
