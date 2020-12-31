@@ -26,7 +26,7 @@ export class Header extends Component {
 			var that = this;
 			setTimeout(function () {
 				that.show();
-			}, 6000);
+			}, 4500);
 		} else {
 			this.setState((state) => ({ slideUp: !state.slideUp }));
 			this.show();

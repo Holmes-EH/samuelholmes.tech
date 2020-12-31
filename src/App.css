@@ -53,8 +53,6 @@ hr {
 	height: 1px;
 }
 footer {
-	position: sticky;
-	bottom: 0;
 	margin: 3em 0;
 }
 
@@ -144,8 +142,11 @@ footer {
 	.LogoLine,
 	.LogoCircle {
 		fill: var(--dark-gray);
-		stroke: var(--dark-gray);
+
 		transition: all 0.3s ease;
+	}
+	.LogoCircle {
+		stroke: var(--dark-gray);
 	}
 	.topLeftText h1,
 	.topRightText h1 {
@@ -195,8 +196,10 @@ footer {
 	.LogoLine,
 	.LogoCircle {
 		fill: var(--light-gray);
-		stroke: var(--light-gray);
 		transition: all 0.3s ease;
+	}
+	.LogoCircle {
+		stroke: var(--light-gray);
 	}
 	.topLeftText h1,
 	.topRightText h1 {
@@ -245,7 +248,7 @@ header {
 .slideUp {
 	height: 100vh;
 	transition: height 1.5s ease-out;
-	animation: slideUp 3s 3s forwards;
+	animation: slideUp 3s 1.5s forwards;
 }
 
 /** Burger toggle **/
@@ -355,7 +358,7 @@ header {
 	opacity: 0;
 	max-height: 34px;
 	min-width: 34px;
-	animation: switchOn 1s linear 1s forwards;
+	animation: switchOn 1s forwards;
 }
 
 .logoContainer:hover .LogoLine,
@@ -372,24 +375,24 @@ header {
 	animation-name: glitch;
 	animation-duration: 1.7s;
 	animation-fill-mode: forwards;
-	animation-delay: 2s;
+	animation-delay: 1s;
 }
 .holmes {
-	animation-delay: 2.3s;
+	animation-delay: 1.3s;
 	animation-direction: reverse;
 }
 .T {
 	animation-direction: reverse;
 }
 .E {
-	animation-delay: 2.7s;
+	animation-delay: 1.7s;
 }
 .C {
-	animation-delay: 3s;
+	animation-delay: 2s;
 	animation-direction: reverse;
 }
 .H {
-	animation-delay: 2.5s;
+	animation-delay: 1.5s;
 	animation-direction: reverse;
 }
 .fadeIn {

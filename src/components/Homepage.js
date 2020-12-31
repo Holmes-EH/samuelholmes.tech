@@ -24,7 +24,7 @@ export class Homepage extends Component {
 			var that = this;
 			setTimeout(function () {
 				that.show();
-			}, 6000);
+			}, 4000);
 		} else {
 			this.show();
 		}
