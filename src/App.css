@@ -5,7 +5,7 @@ Domain : samuelholmes.tech
 Version : 0.1
 **************************/
 
-@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;700&display=swap');
 
 :root {
 	--bright-yellow: rgb(255, 196, 12);
@@ -22,7 +22,7 @@ Version : 0.1
 	box-sizing: border-box;
 }
 body {
-	font-family: "Quicksand", sans-serif;
+	font-family: 'Quicksand', sans-serif;
 	margin: 0;
 	padding: 0;
 }
@@ -133,16 +133,15 @@ footer {
 }
 @media (prefers-color-scheme: light) {
 	body {
-		background-color: var(--light-green);
+		background-color: var(--light-gray);
 		color: var(--dark-gray);
 	}
 	header {
-		background-color: var(--light-gray);
+		background-color: var(--dark-gray);
 	}
 	.LogoLine,
 	.LogoCircle {
 		fill: var(--dark-gray);
-
 		transition: all 0.3s ease;
 	}
 	.LogoCircle {
@@ -150,7 +149,11 @@ footer {
 	}
 	.topLeftText h1,
 	.topRightText h1 {
-		color: var(--dark-gray);
+		color: var(--light-gray);
+	}
+	.topLogo .LogoCircle,
+	.topLogo .LogoLine {
+		fill: var(--light-gray);
 	}
 	.nav--visible {
 		background-color: var(--light-gray);
@@ -292,7 +295,7 @@ header {
 }
 .hamburger::before,
 .hamburger::after {
-	content: "";
+	content: '';
 	width: 100%;
 }
 .hamburger::before {
