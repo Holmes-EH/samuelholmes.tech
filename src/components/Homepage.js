@@ -4,7 +4,6 @@ import Footer from './Footer'
 import { ReactComponent as Illus1 } from '../images/illus1.svg'
 import { ReactComponent as Illus2 } from '../images/illus2.svg'
 import { ReactComponent as Illus3 } from '../images/illus3.svg'
-import { ReactComponent as SimpleLuxe } from '../images/simpleLuxe.svg'
 
 import {
 	SiNextDotJs,
@@ -154,11 +153,14 @@ export class Homepage extends Component {
 								rel='noopener noreferrer'
 								className='imageLink'
 							>
-								<SimpleLuxe />
+								<img
+									src='/images/favicon_SimpleLuxe.png'
+									alt='Simple luxe favicon'
+								/>
 							</a>
 							<div className='hook--text'>
 								<p>
-									Site dynammique avec un thème wordpress sur
+									Site dynamique avec un thème wordpress sur
 									mesure.
 									<br />
 									<br />
@@ -234,7 +236,7 @@ export class Homepage extends Component {
 							</a>
 							<div className='hook--text'>
 								<p>
-									Site dynammique avec un thème wordpress sur
+									Site dynamique avec un thème wordpress sur
 									mesure.
 									<br />
 									<br />
