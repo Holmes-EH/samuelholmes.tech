@@ -36,6 +36,9 @@ img {
 	align-items: center;
 }
 a {
+	cursor: pointer;
+}
+header a {
 	text-decoration: none;
 }
 .container {
@@ -46,7 +49,14 @@ a {
 .flex {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: center;
+	justify-content: space-evenly;
+}
+.card {
+	padding: 1em;
+	color: var(--dark-gray);
+	background: var(--light-gray);
+	border-radius: 1em;
+	box-shadow: 10px 15px 2em rgba(23, 23, 23, 0.3);
 }
 hr {
 	border: 0;
@@ -55,10 +65,6 @@ hr {
 footer {
 	margin: 3em 0;
 }
-
-/******************/
-/** Header Rules **/
-/******************/
 
 @keyframes glitch {
 	0% {
@@ -129,116 +135,6 @@ footer {
 	}
 	100% {
 		opacity: 1;
-	}
-}
-@media (prefers-color-scheme: light) {
-	body {
-		background-color: var(--light-gray);
-		color: var(--dark-gray);
-	}
-	header {
-		background-color: var(--dark-gray);
-	}
-	.LogoLine,
-	.LogoCircle {
-		fill: var(--dark-gray);
-		transition: all 0.3s ease;
-	}
-	.LogoCircle {
-		stroke: var(--dark-gray);
-	}
-	.topLeftText h1,
-	.topRightText h1 {
-		color: var(--light-gray);
-	}
-	.topLogo .LogoCircle,
-	.topLogo .LogoLine {
-		fill: var(--light-gray);
-	}
-	.nav--visible {
-		background-color: var(--light-gray);
-	}
-	.nav-item {
-		color: var(--dark-gray);
-	}
-	hr {
-		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0+0,1+50,0+100 */
-		background-image: -moz-linear-gradient(
-			left,
-			rgba(0, 0, 0, 0) 0%,
-			rgba(0, 0, 0, 1) 50%,
-			rgba(0, 0, 0, 0) 100%
-		); /* FF3.6-15 */
-		background-image: -webkit-linear-gradient(
-			left,
-			rgba(0, 0, 0, 0) 0%,
-			rgba(0, 0, 0, 1) 50%,
-			rgba(0, 0, 0, 0) 100%
-		); /* Chrome10-25,Safari5.1-6 */
-		background-image: linear-gradient(
-			to right,
-			rgba(0, 0, 0, 0) 0%,
-			rgba(0, 0, 0, 1) 50%,
-			rgba(0, 0, 0, 0) 100%
-		); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-		filter: progid:DXImageTransform.Microsoft.gradient(
-            startColorstr='#00000000',
-            endColorstr='#00000000',
-            GradientType=1
-        ); /* IE6-9 */
-	}
-}
-@media (prefers-color-scheme: dark) {
-	body {
-		background-color: var(--med-gray);
-		color: var(--light-gray);
-	}
-	header {
-		background-color: var(--dark-gray);
-	}
-	.LogoLine,
-	.LogoCircle {
-		fill: var(--light-gray);
-		transition: all 0.3s ease;
-	}
-	.LogoCircle {
-		stroke: var(--light-gray);
-	}
-	.topLeftText h1,
-	.topRightText h1 {
-		color: var(--light-gray);
-	}
-	.nav--visible {
-		background-color: var(--dark-gray);
-	}
-	.nav-item {
-		color: var(--light-gray);
-	}
-	hr {
-		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0+0,1+50,0+100 */
-		background-image: -moz-linear-gradient(
-			left,
-			rgba(240, 240, 240, 0) 0%,
-			rgba(240, 240, 240, 1) 50%,
-			rgba(240, 240, 240, 0) 100%
-		); /* FF3.6-15 */
-		background-image: -webkit-linear-gradient(
-			left,
-			rgba(240, 240, 240, 0) 0%,
-			rgba(240, 240, 240, 1) 50%,
-			rgba(240, 240, 240, 0) 100%
-		); /* Chrome10-25,Safari5.1-6 */
-		background-image: linear-gradient(
-			to right,
-			rgba(240, 240, 240, 0) 0%,
-			rgba(240, 240, 240, 1) 50%,
-			rgba(240, 240, 240, 0) 100%
-		); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-		filter: progid:DXImageTransform.Microsoft.gradient(
-            startColorstr='#00000000',
-            endColorstr='#00000000',
-            GradientType=1
-        ); /* IE6-9 */
 	}
 }
 
@@ -414,23 +310,176 @@ header {
 /****************** Top Hooks *****************/
 .hook {
 	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
 	align-items: center;
-	justify-content: center;
 	margin-bottom: 2em;
-	margin-right: 1em;
 }
 .hook svg {
 	max-width: 120px;
 }
 .hook--text {
-	margin-left: 1em;
+	text-align: center;
 }
+
 .box {
 	border: 5px solid var(--ocre);
 	border-radius: 1em;
 	padding: 0 1em;
 	text-align: center;
+}
+
+/****************** Showcase ********************/
+.showcaseSection {
 	margin-bottom: 2em;
+	gap: 1em;
+}
+.showcase {
+	display: grid;
+	grid-template-rows: 70px 300px auto auto;
+	max-width: 40ch;
+}
+
+.showcase h2 {
+	text-align: center;
+}
+.hook--text p {
+	max-width: 40ch;
+	text-align: justify;
+}
+.showcase img {
+	max-width: 100%;
+}
+.imageLink {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.cardIcons {
+	font-size: 2.5em;
+}
+.contact {
+	margin-top: 0;
+}
+.socialIcons {
+	gap: 2em;
+}
+.socialIcons a {
+	color: var(--light-gray);
+}
+
+@media (prefers-color-scheme: light) {
+	body {
+		background-color: var(--light-gray);
+		color: var(--dark-gray);
+	}
+	header {
+		background-color: var(--dark-gray);
+	}
+	.LogoLine,
+	.LogoCircle {
+		fill: var(--dark-gray);
+		transition: all 0.3s ease;
+	}
+	.LogoCircle {
+		stroke: var(--dark-gray);
+	}
+	.topLeftText h1,
+	.topRightText h1 {
+		color: var(--light-gray);
+	}
+	.topLogo .LogoCircle,
+	.topLogo .LogoLine {
+		fill: var(--light-gray);
+	}
+	.nav--visible {
+		background-color: var(--light-gray);
+	}
+	.nav-item {
+		color: var(--dark-gray);
+	}
+	hr {
+		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0+0,1+50,0+100 */
+		background-image: -moz-linear-gradient(
+			left,
+			rgba(0, 0, 0, 0) 0%,
+			rgba(0, 0, 0, 1) 50%,
+			rgba(0, 0, 0, 0) 100%
+		); /* FF3.6-15 */
+		background-image: -webkit-linear-gradient(
+			left,
+			rgba(0, 0, 0, 0) 0%,
+			rgba(0, 0, 0, 1) 50%,
+			rgba(0, 0, 0, 0) 100%
+		); /* Chrome10-25,Safari5.1-6 */
+		background-image: linear-gradient(
+			to right,
+			rgba(0, 0, 0, 0) 0%,
+			rgba(0, 0, 0, 1) 50%,
+			rgba(0, 0, 0, 0) 100%
+		); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		filter: progid:DXImageTransform.Microsoft.gradient(
+            startColorstr='#00000000',
+            endColorstr='#00000000',
+            GradientType=1
+        ); /* IE6-9 */
+	}
+	.socialIcons a {
+		color: var(--dark-gray);
+	}
+}
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: var(--med-gray);
+		color: var(--light-gray);
+	}
+	header {
+		background-color: var(--dark-gray);
+	}
+	.LogoLine,
+	.LogoCircle {
+		fill: var(--light-gray);
+		transition: all 0.3s ease;
+	}
+	.LogoCircle {
+		stroke: var(--light-gray);
+	}
+	.topLeftText h1,
+	.topRightText h1 {
+		color: var(--light-gray);
+	}
+	.nav--visible {
+		background-color: var(--dark-gray);
+	}
+	.nav-item {
+		color: var(--light-gray);
+	}
+	hr {
+		/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,000000+100&0+0,1+50,0+100 */
+		background-image: -moz-linear-gradient(
+			left,
+			rgba(240, 240, 240, 0) 0%,
+			rgba(240, 240, 240, 1) 50%,
+			rgba(240, 240, 240, 0) 100%
+		); /* FF3.6-15 */
+		background-image: -webkit-linear-gradient(
+			left,
+			rgba(240, 240, 240, 0) 0%,
+			rgba(240, 240, 240, 1) 50%,
+			rgba(240, 240, 240, 0) 100%
+		); /* Chrome10-25,Safari5.1-6 */
+		background-image: linear-gradient(
+			to right,
+			rgba(240, 240, 240, 0) 0%,
+			rgba(240, 240, 240, 1) 50%,
+			rgba(240, 240, 240, 0) 100%
+		); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		filter: progid:DXImageTransform.Microsoft.gradient(
+            startColorstr='#00000000',
+            endColorstr='#00000000',
+            GradientType=1
+        ); /* IE6-9 */
+	}
 }
 
 @media (min-width: 800px) {
