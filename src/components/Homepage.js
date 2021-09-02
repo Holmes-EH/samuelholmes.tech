@@ -18,6 +18,7 @@ import {
 	SiNodeDotJs,
 	SiMongodb,
 	SiReact,
+	SiRedux,
 } from 'react-icons/si'
 
 export class Homepage extends Component {
@@ -356,6 +357,7 @@ export class Homepage extends Component {
 									<SiNodeDotJs />
 									<SiMongodb />
 									<SiReact />
+									<SiRedux />
 									<SiHeroku />
 								</div>
 							</div>
