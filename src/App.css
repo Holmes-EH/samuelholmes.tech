@@ -41,6 +41,9 @@ a {
 header a {
 	text-decoration: none;
 }
+h1 {
+	text-align: center;
+}
 .container {
 	max-width: 1300px;
 	margin: 0 auto;
@@ -338,6 +341,7 @@ header {
 	display: grid;
 	grid-template-rows: 70px 300px auto auto;
 	max-width: 40ch;
+	gap: 10px;
 }
 
 .showcase h2 {
@@ -348,7 +352,7 @@ header {
 	text-align: justify;
 }
 .showcase img {
-	max-width: 100%;
+	max-height: 100%;
 }
 .imageLink {
 	display: flex;

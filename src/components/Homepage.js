@@ -14,6 +14,10 @@ import {
 	SiGithub,
 	SiJavascript,
 	SiLinkedin,
+	SiHeroku,
+	SiNodeDotJs,
+	SiMongodb,
+	SiReact,
 } from 'react-icons/si'
 
 export class Homepage extends Component {
@@ -145,7 +149,7 @@ export class Homepage extends Component {
 							</div>
 						</div>
 						<div className='showcase card'>
-							<h2>Simpleluxe</h2>
+							<h2>SimpleLuxe</h2>
 
 							<a
 								href='https://simpleluxe.fr'
@@ -221,7 +225,7 @@ export class Homepage extends Component {
 							</div>
 						</div>
 						<div className='showcase card'>
-							<h2>Gabarra films.</h2>
+							<h2>Gabarra films</h2>
 
 							<a
 								href='http://gabarra-films.org'
@@ -276,6 +280,83 @@ export class Homepage extends Component {
 									<SiWordpress />
 									<SiOvh />
 									<SiPhp />
+								</div>
+							</div>
+						</div>
+						<div className='showcase card'>
+							<h2>Proshop (Projet)</h2>
+							<a
+								href='https://holmes-proshop.herokuapp.com/'
+								target='_blank'
+								rel='noopener noreferrer'
+								className='imageLink'
+							>
+								<img
+									src='/images/proshop - screenshot.png'
+									alt="Capture d'écran Proshop"
+								/>
+							</a>
+							<div className='hook-text'>
+								<p>
+									Projet de site e-commerce largement inspiré
+									d'un tutoriel de{' '}
+									<a
+										href='https://www.traversymedia.com/'
+										target='_blank'
+										rel='noopener noreferrer'
+									>
+										Brad Traversy
+									</a>
+									<br />
+									<br />
+									Frontend développé avec React.js
+									<br />
+									Backend avec Express.js et MongoDb
+									<br />
+									<br />
+									Entièrement codé de 0, ce site e-commerce
+									vous pemret la vente de produits mais
+									également la publication d'articles de blog
+									auxquels vous pouvez relier des produits en
+									vente sur votre site. Implémentation de
+									paiement par PayPal
+									<br />
+									Back office pour la gestion de commandes, la
+									création de contenu, messagerie avec les
+									clients.
+									<br />
+									<br />
+									Vous pouvez cliquer sur l'image pour visiter
+									le site. Il est hébergé sur Heroku avec un
+									compte gratuit. L'instance cloud aura besoin
+									d'être « réveilée » avant de pouvoir
+									répondre à la requête de votre navigateur.
+									<br />
+									Pour l'instant, il n'est disponible qu'en
+									anglais.
+								</p>
+							</div>
+							<div
+								style={{
+									alignSelf: 'end',
+									textAlign: 'center',
+								}}
+							>
+								<p>
+									Déploiement en Ci/Cd sur{' '}
+									<a
+										href='https://www.heroku.com//'
+										target='_blank'
+										rel='noopener noreferrer'
+									>
+										Heroku
+									</a>
+								</p>
+								<div className='flex cardIcons'>
+									<SiNodeDotJs />
+									<SiMongodb />
+									<SiReact />
+									<SiHeroku />
 								</div>
 							</div>
 						</div>
