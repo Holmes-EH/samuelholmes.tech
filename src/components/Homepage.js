@@ -86,7 +86,7 @@ export class Homepage extends Component {
 					<hr />
 
 					<div className='container flex'>
-						<h1>Quelques'unes de mes réalisations</h1>
+						<h1>Quelques-unes de mes réalisations</h1>
 					</div>
 					<div className='container flex showcaseSection'>
 						<div className='showcase card'>
@@ -316,7 +316,7 @@ export class Homepage extends Component {
 									<br />
 									<br />
 									Entièrement codé de 0, ce site e-commerce
-									vous pemret la vente de produits mais
+									vous permet la vente de produits mais
 									également la publication d'articles de blog
 									auxquels vous pouvez relier des produits en
 									vente sur votre site. Implémentation de
