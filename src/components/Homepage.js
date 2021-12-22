@@ -6,7 +6,7 @@ import { ReactComponent as Illus2 } from '../images/illus2.svg'
 import { ReactComponent as Illus3 } from '../images/illus3.svg'
 
 import {
-	SiNextDotJs,
+	SiNextdotjs,
 	SiNetlify,
 	SiWordpress,
 	SiOvh,
@@ -15,7 +15,7 @@ import {
 	SiJavascript,
 	SiLinkedin,
 	SiHeroku,
-	SiNodeDotJs,
+	SiNodedotjs,
 	SiMongodb,
 	SiReact,
 	SiRedux,
@@ -142,7 +142,7 @@ export class Homepage extends Component {
 									</a>
 								</p>
 								<div className='flex cardIcons'>
-									<SiNextDotJs />
+									<SiNextdotjs />
 									<SiNetlify />
 									<SiJavascript />
 									<SiGithub />
@@ -354,7 +354,7 @@ export class Homepage extends Component {
 									</a>
 								</p>
 								<div className='flex cardIcons'>
-									<SiNodeDotJs />
+									<SiNodedotjs />
 									<SiMongodb />
 									<SiReact />
 									<SiRedux />
