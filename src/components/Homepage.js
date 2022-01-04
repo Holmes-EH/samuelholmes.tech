@@ -98,7 +98,7 @@ export class Homepage extends Component {
 								className='imageLink'
 							>
 								<img
-									src='https://lefoodshop.com/favicon.png'
+									src='/images/favicon_LeFoodShop.png'
 									alt='Favicon Le Food Shop'
 								/>
 							</a>
@@ -235,8 +235,8 @@ export class Homepage extends Component {
 								className='imageLink'
 							>
 								<img
-									src='http://gabarra-films.org/wp-content/uploads/2017/06/GABARRA-RVB-MARINE02.png'
-									alt='Favicon Le Food Shop'
+									src='/images/GABARRA-RVB-MARINE02.png'
+									alt='Favicon Gabarra Films'
 								/>
 							</a>
 							<div className='hook--text'>
