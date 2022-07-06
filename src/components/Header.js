@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
-import Link from 'next/Link'
 import SHLogo from '../images/sh-on.svg'
+import Link from 'next/link'
 
 const Header = () => {
-	const [showNav, setShowNav] = useState(false)
 	const [show, setShow] = useState(false)
 	const [slideUp, setSlideUp] = useState(true)
 	const [firstLoad, setFirstLoad] = useState(true)
