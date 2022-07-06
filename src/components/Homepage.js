@@ -2,6 +2,7 @@ import {
 	SiNextdotjs,
 	SiNetlify,
 	SiWordpress,
+	SiMysql,
 	SiOvh,
 	SiPhp,
 	SiGithub,
@@ -90,6 +91,14 @@ const Homepage = () => {
 							<div className='hook'>
 								<SiPython />
 								Python
+							</div>
+							<div className='hook'>
+								<SiWordpress />
+								WordPress
+							</div>
+							<div className='hook'>
+								<SiMysql />
+								MySQL
 							</div>
 						</div>
 					</div>
