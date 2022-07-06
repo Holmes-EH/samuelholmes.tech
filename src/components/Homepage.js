@@ -23,13 +23,12 @@ const Homepage = () => {
 	const [fadeIn, setFadeIn] = useState(false)
 	const [firstLoad, setFirstLoad] = useState(true)
 
-	const display = () => {
-		setShow(true)
-		setFadeIn(true)
-		setFirstLoad(!firstLoad)
-	}
-
 	useEffect(() => {
+		const display = () => {
+			setShow(true)
+			setFadeIn(true)
+			setFirstLoad(!firstLoad)
+		}
 		if (firstLoad) {
 			setTimeout(function () {
 				display()
@@ -58,8 +57,8 @@ const Homepage = () => {
 					<h3>
 						Technicien polyvalent et très curieux.
 						<br />
-						J'ai toujours envie d'apprendre quelque chose de nouveau
-						!
+						J&apos;ai toujours envie d&apos;apprendre quelque chose
+						de nouveau !
 					</h3>
 				</div>
 				<div className='container flex'>
@@ -117,7 +116,7 @@ const Homepage = () => {
 						</a>
 						<div className='hook-text'>
 							<p>
-								Site vitrine d'un restaurant streetfood et
+								Site vitrine d&apos;un restaurant streetfood et
 								cuisine de bistro indépendant, presque statique.
 								<br />
 								<br />
@@ -130,7 +129,7 @@ const Homepage = () => {
 								<br />
 								<br />
 								Développé avec le framework NextJS / React et
-								interroge l'API Graph Instagram Business.
+								interroge l&apos;API Graph Instagram Business.
 								<br />
 								<br />
 								Intégration de google analytics et mise en
@@ -256,9 +255,10 @@ const Homepage = () => {
 								mesure.
 								<br />
 								<br />
-								Le cinéma l'Atalante avait d'un besoin d'un site
-								web pour communiquer sur leur catalogue de films
-								basques qu'ils distribuent en France
+								Le cinéma l&apos;Atalante avait d&apos;un besoin
+								d&apos;un site web pour communiquer sur leur
+								catalogue de films basques qu&apos;ils
+								distribuent en France
 								<br />
 								<br />
 								Site multilingue, géré via le plugin{' '}
@@ -309,8 +309,8 @@ const Homepage = () => {
 						</a>
 						<div className='hook-text'>
 							<p>
-								Projet de site e-commerce largement inspiré d'un
-								tutoriel de{' '}
+								Projet de site e-commerce largement inspiré
+								d&apos;un tutoriel de{' '}
 								<a
 									href='https://www.traversymedia.com/'
 									target='_blank'
@@ -327,23 +327,24 @@ const Homepage = () => {
 								<br />
 								Entièrement codé de 0, ce site e-commerce vous
 								permet la vente de produits mais également la
-								publication d'articles de blog auxquels vous
-								pouvez relier des produits en vente sur votre
-								site. Implémentation de paiement par PayPal
+								publication d&apos;articles de blog auxquels
+								vous pouvez relier des produits en vente sur
+								votre site. Implémentation de paiement par
+								PayPal
 								<br />
 								Back office pour la gestion de commandes, la
 								création de contenu, messagerie avec les
 								clients.
 								<br />
 								<br />
-								Vous pouvez cliquer sur l'image pour visiter le
-								site. Il est hébergé sur Heroku avec un compte
-								gratuit. L'instance cloud aura besoin d'être
-								« réveilée » avant de pouvoir répondre à la
-								requête de votre navigateur.
+								Vous pouvez cliquer sur l&apos;image pour
+								visiter le site. Il est hébergé sur Heroku avec
+								un compte gratuit. L&apos;instance cloud aura
+								besoin d&apos;être « réveilée » avant de pouvoir
+								répondre à la requête de votre navigateur.
 								<br />
-								Pour l'instant, il n'est disponible qu'en
-								anglais.
+								Pour l&apos;instant, il n&apos;est disponible
+								qu&apos;en anglais.
 							</p>
 						</div>
 						<div
