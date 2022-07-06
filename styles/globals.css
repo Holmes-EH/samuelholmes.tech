@@ -41,7 +41,10 @@ a {
 header a {
 	text-decoration: none;
 }
-h1 {
+h1,
+h2,
+h3,
+h4 {
 	text-align: center;
 }
 .container {
@@ -261,6 +264,7 @@ header {
 	max-height: 34px;
 	min-width: 34px;
 	animation: switchOn 1s forwards;
+	fill: var(--ocre);
 }
 
 .logoContainer:hover .LogoLine,
@@ -307,7 +311,7 @@ header {
 	margin: 0 auto;
 }
 .invisible {
-	display: none;
+	opacity: 0;
 }
 
 /****************** Top Hooks *****************/
@@ -321,17 +325,28 @@ header {
 .hook svg {
 	max-width: 120px;
 }
+.stack {
+	gap: 2em;
+}
+.stack svg {
+	font-size: 3em;
+}
 .hook--text {
 	text-align: center;
 }
 
 .box {
-	border: 5px solid var(--ocre);
 	border-radius: 1em;
 	padding: 0 1em;
 	text-align: center;
 }
-
+.box svg {
+	font-size: 3em;
+	fill: var(--ocre);
+}
+.box .flex {
+	align-items: center;
+}
 /****************** Showcase ********************/
 .showcaseSection {
 	margin-bottom: 2em;
@@ -370,6 +385,10 @@ header {
 }
 .socialIcons a {
 	color: var(--light-gray);
+	transition: all 0.3s ease;
+}
+.socialIcons a:hover {
+	color: var(--ocre);
 }
 
 @media (prefers-color-scheme: light) {

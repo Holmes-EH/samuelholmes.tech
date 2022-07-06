@@ -1,48 +1,34 @@
-import React, { Component } from 'react'
-import { ReactComponent as SHLogo } from '../images/sh-on.svg'
+import { useState, useEffect } from 'react'
+import SHLogo from '../images/sh-on.svg'
+import Link from 'next/link'
 
-export class Header extends Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			showNav: false,
-			show: false,
-			slideUp: true,
-			firstLoad: this.props.firstLoad,
+const Header = () => {
+	const [show, setShow] = useState(false)
+	const [slideUp, setSlideUp] = useState(true)
+	const [firstLoad, setFirstLoad] = useState(true)
+
+	useEffect(() => {
+		const display = () => {
+			setShow(!show)
+			setFirstLoad(!firstLoad)
+			setSlideUp(false)
 		}
-		this.toggleNav = this.toggleNav.bind(this)
-		this.show = this.show.bind(this)
-	}
-
-	toggleNav = () => this.setState((state) => ({ showNav: !state.showNav }))
-	show = () =>
-		this.setState((state) => ({
-			show: !state.show,
-			firstLoad: !state.firstLoad,
-		}))
-
-	componentDidMount = () => {
-		if (this.state.firstLoad) {
-			var that = this
+		if (firstLoad) {
 			setTimeout(function () {
-				that.show()
+				display()
 			}, 4500)
 		} else {
-			this.setState((state) => ({ slideUp: !state.slideUp }))
-			this.show()
+			setSlideUp(!slideUp)
+			display()
 		}
-	}
+	}, [show, firstLoad, slideUp])
 
-	render() {
-		const slideUpClass = this.state.slideUp ? 'slideUp' : ''
-		// const navClasses = this.state.showNav
-		// 	? 'nav fadeIn nav--visible'
-		// 	: 'nav fadeIn'
-		// const hiddenClass = this.state.show ? '' : 'hidden'
-		// const className = this.state.show ? 'nav-toggle' : 'nav-toggle hidden'
-		return (
-			<header className={`row ${slideUpClass}`}>
-				<a href='/' style={{ display: 'block', margin: '0 auto' }}>
+	const slideUpClass = slideUp ? 'slideUp' : ''
+
+	return (
+		<header className={`row ${slideUpClass}`}>
+			<Link href='/'>
+				<a style={{ display: 'block', margin: '0 auto' }}>
 					<div className='logoContainer'>
 						<div className='topLeftText'>
 							<h1>
@@ -63,26 +49,9 @@ export class Header extends Component {
 						</div>
 					</div>
 				</a>
-				{/* <nav className={navClasses + hiddenClass}>
-					<ul className="nav-item--container">
-						<a href="#">
-							<li className="nav-item">Portfolio</li>
-						</a>
-						<a href="#">
-							<li className="nav-item">Login</li>
-						</a>
-					</ul>
-				</nav>
-				<button
-					className={`nav-toggle ${className} ${hiddenClass}`}
-					aria-label="open navigation"
-					onClick={this.toggleNav}
-				>
-					<span className="hamburger"></span>
-				</button> */}
-			</header>
-		)
-	}
+			</Link>
+		</header>
+	)
 }
 
 export default Header

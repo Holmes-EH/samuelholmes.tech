@@ -3,6 +3,4 @@
 Deployed to [netlify](https://www.netlify.com/).
 Visit it live [here](https://samuelholmes.tech).
 
-## Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
