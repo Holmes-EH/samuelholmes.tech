@@ -306,8 +306,7 @@ const Homepage = () => {
 					<div className='showcase card'>
 						<h2>Proshop (Projet)</h2>
 						<a
-							href='https://holmes-proshop.herokuapp.com/'
-							target='_blank'
+							href='#'
 							rel='noopener noreferrer'
 							className='imageLink'
 						>
@@ -346,14 +345,10 @@ const Homepage = () => {
 								clients.
 								<br />
 								<br />
-								Vous pouvez cliquer sur l&apos;image pour
-								visiter le site. Il est hébergé sur Heroku avec
-								un compte gratuit. L&apos;instance cloud aura
-								besoin d&apos;être « réveilée » avant de pouvoir
-								répondre à la requête de votre navigateur.
-								<br />
-								Pour l&apos;instant, il n&apos;est disponible
-								qu&apos;en anglais.
+								Il était hébergé sur Heroku avec un Dyno
+								gratuit. Ces Dynos gratuits n'existent plus. Je
+								n'ai pas prévu de l'héberger ailleurs pour le
+								moment.
 							</p>
 						</div>
 						<div
