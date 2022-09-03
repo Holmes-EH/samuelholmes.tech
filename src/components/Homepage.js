@@ -346,9 +346,9 @@ const Homepage = () => {
 								<br />
 								<br />
 								Il était hébergé sur Heroku avec un Dyno
-								gratuit. Ces Dynos gratuits n'existent plus. Je
-								n'ai pas prévu de l'héberger ailleurs pour le
-								moment.
+								gratuit. Ces Dynos gratuits n&apos;existent
+								plus. Je n&apos;ai pas prévu de l&apos;héberger
+								ailleurs pour le moment.
 							</p>
 						</div>
 						<div
