@@ -1,1 +1,14 @@
-*.env
+# Rust/Python/General ignores
+target/
+Cargo.lock
+**/*.rs.bk
+.DS_Store
+*.log
+# Env/config files
+.env
+# Node (if present)
+node_modules/
+build/
+
+#project
+db-data/
