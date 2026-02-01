@@ -1,0 +1,24 @@
+# Rust ignores
+
+target/
+Cargo.lock
+*.rs.bk
+.git
+.env
+*.db
+
+# Bun ignores
+
+node_modules/
+Dockerfile*
+docker-compose*
+.dockerignore
+.git
+.gitignore
+README.md
+LICENSE
+.vscode
+.editorconfig
+.idea
+coverage*
+.env
