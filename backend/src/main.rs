@@ -1,3 +1,5 @@
+use std::time::Duration;
+
 use anyhow::{Context, Ok};
 use async_graphql::http::GraphiQLSource;
 use async_graphql_axum::GraphQL;
@@ -25,6 +27,7 @@ async fn main() -> anyhow::Result<()> {
 
     let db_pool = PgPoolOptions::new()
         .max_connections(20)
+        .acquire_timeout(Duration::from_secs(5))
         .connect(&database_url)
         .await
         .context("failed to connect to DATABASE_URL")?;
