@@ -25,7 +25,6 @@ pub struct CreateProjectInput {
     pub featured: bool,
 }
 
-// For GraphQL output (queries)
 #[derive(SimpleObject)]
 pub struct Project {
     id: String,
@@ -36,7 +35,7 @@ pub struct Project {
     live_url: Option<String>,
     image_url: Option<String>,
     featured: bool,
-    created_at: String, // or use a DateTime scalar
+    created_at: String,
     updated_at: String,
 }
 
