@@ -25,6 +25,12 @@ pub struct CreateProjectInput {
     pub featured: bool,
 }
 
+#[derive(InputObject)]
+pub struct UpdateProjectInput {
+    pub id: String,
+    pub content: CreateProjectInput,
+}
+
 #[derive(SimpleObject)]
 pub struct Project {
     id: String,
