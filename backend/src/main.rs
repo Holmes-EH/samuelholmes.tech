@@ -32,7 +32,7 @@ async fn main() -> anyhow::Result<()> {
         .await
         .context("failed to connect to DATABASE_URL")?;
 
-    sqlx::migrate!().run(&db_pool).await?;
+    sqlx::migrate!("src/db/migrations").run(&db_pool).await?;
 
     let schema = build_schema(db_pool);
     let app = Router::new().route("/", get(graphiql).post_service(GraphQL::new(schema)));
