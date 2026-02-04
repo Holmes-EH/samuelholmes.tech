@@ -5,6 +5,7 @@ pub enum AppError {
     NotFound(String),
     InvalidInput(String),
     DatabaseError(String),
+    InternalError(String),
 }
 
 impl std::fmt::Display for AppError {
@@ -13,6 +14,7 @@ impl std::fmt::Display for AppError {
             AppError::NotFound(msg) => write!(f, "{}", msg),
             AppError::InvalidInput(msg) => write!(f, "{}", msg),
             AppError::DatabaseError(msg) => write!(f, "{}", msg),
+            AppError::InternalError(msg) => write!(f, "{}", msg),
         }
     }
 }
@@ -30,6 +32,9 @@ impl ErrorExtensions for AppError {
             }
             AppError::DatabaseError(_) => {
                 err = err.extend_with(|_, e| e.set("code", "DATABASE_ERROR"))
+            }
+            AppError::InternalError(_) => {
+                err = err.extend_with(|_, e| e.set("code", "SERVER_ERROR"))
             }
         }
 
