@@ -15,3 +15,13 @@ pub struct DbProject {
     pub created_at: DateTime<Utc>,
     pub updated_at: DateTime<Utc>,
 }
+
+#[derive(FromRow)]
+pub struct DbUser {
+    pub id: Uuid,
+    pub name: String,
+    pub email: String,
+    pub password: String,
+    pub created_at: DateTime<Utc>,
+    pub updated_at: DateTime<Utc>,
+}

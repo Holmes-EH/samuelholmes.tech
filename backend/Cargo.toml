@@ -21,3 +21,6 @@ sqlx = { version = "0.8", features = [
 ] }
 tokio = { version = "1.49.0", features = ["full"] }
 tracing = "0.1.44"
+argon2 = "0.5.3"
+jsonwebtoken = { version = "10", features = ["rust_crypto"] }
+serde = "1.0.228"
