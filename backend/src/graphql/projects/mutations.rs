@@ -6,14 +6,15 @@ use crate::{
     db::models::DbProject,
     graphql::{
         error::AppError,
-        schema::{CreateProjectInput, Project, UpdateProjectInput},
+        projects::schema::{CreateProjectInput, Project, UpdateProjectInput},
     },
 };
 
-pub struct Mutation;
+#[derive(Default)]
+pub struct ProjectMutation;
 
 #[Object]
-impl Mutation {
+impl ProjectMutation {
     async fn create_project(
         &self,
         ctx: &Context<'_>,

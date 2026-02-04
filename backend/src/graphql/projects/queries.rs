@@ -4,13 +4,14 @@ use uuid::Uuid;
 
 use crate::{
     db::models::DbProject,
-    graphql::{error::AppError, schema::Project},
+    graphql::{error::AppError, projects::schema::Project},
 };
 
-pub struct Query;
+#[derive(Default)]
+pub struct ProjectQuery;
 
 #[Object]
-impl Query {
+impl ProjectQuery {
     async fn list_projects(&self, ctx: &Context<'_>) -> Result<Vec<Project>> {
         let pool = ctx
             .data::<PgPool>()

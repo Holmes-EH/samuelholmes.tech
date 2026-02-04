@@ -1,6 +1,6 @@
 mod error;
-mod mutations;
-mod queries;
+mod projects;
 pub mod schema;
+mod users;
 
 pub use schema::build_schema;
