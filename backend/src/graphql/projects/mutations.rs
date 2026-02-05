@@ -6,6 +6,7 @@ use crate::{
     db::models::DbProject,
     graphql::{
         error::AppError,
+        guard::AuthGuard,
         projects::schema::{CreateProjectInput, Project, UpdateProjectInput},
     },
 };
@@ -15,6 +16,7 @@ pub struct ProjectMutation;
 
 #[Object]
 impl ProjectMutation {
+    #[graphql(guard = "AuthGuard")]
     async fn create_project(
         &self,
         ctx: &Context<'_>,
@@ -58,6 +60,7 @@ impl ProjectMutation {
         Ok(db_project.into())
     }
 
+    #[graphql(guard = "AuthGuard")]
     async fn update_project(
         &self,
         ctx: &Context<'_>,
@@ -106,6 +109,7 @@ impl ProjectMutation {
         Ok(db_project.into())
     }
 
+    #[graphql(guard = "AuthGuard")]
     async fn delete_project(&self, ctx: &Context<'_>, project_id: String) -> Result<u64> {
         let pool = ctx
             .data::<PgPool>()

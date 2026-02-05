@@ -4,7 +4,6 @@ use argon2::{
 };
 use async_graphql::*;
 use jsonwebtoken::{Algorithm, EncodingKey, Header, encode};
-use serde::{Deserialize, Serialize};
 use sqlx::PgPool;
 // use uuid::Uuid;
 
@@ -12,15 +11,10 @@ use crate::{
     db::models::DbUser,
     graphql::{
         error::AppError,
+        guard::Claims,
         users::schema::{CreateUserInput, LoginResponse, User},
     },
 };
-
-#[derive(Debug, Serialize, Deserialize, Clone)]
-struct Claims {
-    user_id: String,
-    exp: u64,
-}
 
 #[derive(Default)]
 pub struct UserMutation;
