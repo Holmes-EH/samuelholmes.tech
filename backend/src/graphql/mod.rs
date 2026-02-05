@@ -1,5 +1,5 @@
 mod error;
-mod guard;
+pub mod guard;
 mod projects;
 pub mod schema;
 mod users;

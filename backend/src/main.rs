@@ -5,6 +5,7 @@ use async_graphql_axum::{GraphQLRequest, GraphQLResponse};
 use axum::{Extension, Router, middleware, routing::post};
 use sqlx::postgres::PgPoolOptions;
 use tokio::net::TcpListener;
+use uuid::Uuid;
 
 use crate::{
     auth_middleware::extract_user_id_from_token,
@@ -42,12 +43,12 @@ async fn main() -> anyhow::Result<()> {
 
 async fn graphql_handler(
     Extension(schema): Extension<AppSchema>,
-    Extension(token): Extension<Option<String>>,
+    Extension(user_id): Extension<Option<Uuid>>,
     req: GraphQLRequest,
 ) -> GraphQLResponse {
     let mut request = req.into_inner();
-    if let Some(token) = token {
-        request = request.data(token);
+    if let Some(id) = user_id {
+        request = request.data(id);
     }
     schema.execute(request).await.into()
 }

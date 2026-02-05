@@ -101,7 +101,7 @@ impl UserMutation {
         let now = chrono::Utc::now();
         let exp = (now + chrono::TimeDelta::days(10)).timestamp() as u64;
         let claims = Claims {
-            user_id: db_user.id.to_string(),
+            sub: db_user.id.to_string(),
             exp,
         };
         let key = dotenvy::var("JWT_SECRET")
