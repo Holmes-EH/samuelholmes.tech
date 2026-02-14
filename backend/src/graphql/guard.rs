@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use sqlx::PgPool;
 use uuid::Uuid;
 
-use crate::{db::models::DbUser, graphql::error::AppError};
+use crate::graphql::error::AppError;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Claims {

@@ -7,10 +7,7 @@ use crate::graphql::{
 };
 
 #[derive(MergedObject, Default)]
-pub struct QueryRoot(
-    ProjectQuery,
-    // UserQuery
-);
+pub struct QueryRoot(ProjectQuery, UserQuery);
 
 #[derive(MergedObject, Default)]
 pub struct MutationRoot(ProjectMutation, UserMutation);
