@@ -1,34 +1,50 @@
-use std::time::Duration;
+use std::process;
 
-use anyhow::{Context, Ok};
 use async_graphql_axum::{GraphQLRequest, GraphQLResponse};
 use axum::{Extension, Router, middleware, routing::post};
-use sqlx::postgres::PgPoolOptions;
+use sqlx::{Connection, PgConnection, postgres::PgPoolOptions};
 use tokio::net::TcpListener;
 use uuid::Uuid;
 
 use crate::{
     auth_middleware::extract_user_id_from_token,
     graphql::{build_schema, schema::AppSchema},
+    utils::{log_error, log_info},
 };
 
 mod auth_middleware;
 mod db;
 mod graphql;
+mod utils;
 
 #[tokio::main]
-async fn main() -> anyhow::Result<()> {
-    let database_url =
-        dotenvy::var("DATABASE_URL").context("DATABASE_URL must be set in environment")?;
+async fn main() {
+    let database_url = match dotenvy::var("DATABASE_URL") {
+        Ok(db_url) => db_url,
+        Err(_) => {
+            log_error("DATABASE_URL must be set in environment");
+            process::exit(1)
+        }
+    };
 
-    let db_pool = PgPoolOptions::new()
+    test_db_connection(&database_url).await;
+
+    let db_pool = match PgPoolOptions::new()
         .max_connections(20)
-        .acquire_timeout(Duration::from_secs(5))
         .connect(&database_url)
         .await
-        .context("failed to connect to DATABASE_URL")?;
+    {
+        Ok(pool) => pool,
+        Err(_) => {
+            log_error("failed to connect to DATABASE_URL");
+            process::exit(1);
+        }
+    };
 
-    sqlx::migrate!("src/db/migrations").run(&db_pool).await?;
+    if let Err(err) = sqlx::migrate!("src/db/migrations").run(&db_pool).await {
+        log_error(format!("error running migrations : {err}"));
+        process::exit(1);
+    };
 
     let schema = build_schema(db_pool);
     let app = Router::new()
@@ -36,9 +52,33 @@ async fn main() -> anyhow::Result<()> {
         .layer(Extension(schema))
         .layer(middleware::from_fn(extract_user_id_from_token));
 
-    println!("Listening @ 127.0.0.1:8000");
-    axum::serve(TcpListener::bind("127.0.0.1:8000").await.unwrap(), app).await?;
-    Ok(())
+    let address = "127.0.0.1:8000";
+
+    let listener = match TcpListener::bind(address).await {
+        Ok(tcp_listener) => tcp_listener,
+        Err(err) => {
+            log_error(format!("error listening on 127.0.0.1:8000: {err}"));
+            process::exit(1);
+        }
+    };
+    log_info(format!("listening @ {address}"));
+    if let Err(err) = axum::serve(listener, app).await {
+        log_error(format!("error serving app : {err}"));
+        process::exit(1);
+    };
+}
+
+async fn test_db_connection(url: &str) {
+    match PgConnection::connect(url).await {
+        Ok(conn) => {
+            conn.close().await.ok();
+            log_info("Successfully connected to DB");
+        }
+        Err(e) => {
+            log_error(format!("Failed to connect to DATABASE_URL: {e}"));
+            process::exit(1);
+        }
+    }
 }
 
 async fn graphql_handler(
