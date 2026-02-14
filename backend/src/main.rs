@@ -19,6 +19,7 @@ mod utils;
 
 #[tokio::main]
 async fn main() {
+    validate_env();
     let database_url = match dotenvy::var("DATABASE_URL") {
         Ok(db_url) => db_url,
         Err(_) => {
@@ -66,6 +67,17 @@ async fn main() {
         log_error(format!("error serving app : {err}"));
         process::exit(1);
     };
+}
+
+fn validate_env() {
+    if dotenvy::var("DATABASE_URL").is_err() {
+        log_error("DATABASE_URL must be set in environment");
+        process::exit(1)
+    }
+    if dotenvy::var("JWT_SECRET").is_err() {
+        log_error("JWT_SECRET must be set in environment");
+        process::exit(1)
+    }
 }
 
 async fn test_db_connection(url: &str) {
