@@ -5,7 +5,6 @@ edition = "2024"
 
 [dependencies]
 uuid = { version = "1.20.0", features = ["v7"] }
-anyhow = "1.0.100"
 async-graphql = "7.2.1"
 async-graphql-axum = "7.2.1"
 axum = "0.8.8"
@@ -24,3 +23,4 @@ tracing = "0.1.44"
 argon2 = "0.5.3"
 jsonwebtoken = { version = "10", features = ["rust_crypto"] }
 serde = "1.0.228"
+colored = "3.1.1"
