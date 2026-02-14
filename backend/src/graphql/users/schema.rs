@@ -12,7 +12,9 @@ pub struct CreateUserInput {
 #[derive(InputObject)]
 pub struct UpdateUserInput {
     pub id: String,
-    pub content: CreateUserInput,
+    pub name: Option<String>,
+    pub email: Option<String>,
+    pub password: Option<String>,
 }
 
 #[derive(SimpleObject)]
