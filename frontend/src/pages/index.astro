@@ -1,0 +1,153 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import TechStack from '../components/TechStack.astro';
+import { listProjects } from '../lib/graphql';
+import type {Project} from '../generated/graphql.ts';
+import "../styles/global.css";
+
+// Fetch projects at build time
+let projects:Project[] = [];
+try {
+  projects = await listProjects();
+} catch (error) {
+  console.error('Failed to fetch projects:', error);
+  // Use fallback/mock data in development
+  projects = [];
+}
+
+// Sort: featured first, then by date
+const sortedProjects = projects.sort((a, b) => {
+  if (a.featured && !b.featured) return -1;
+  if (!a.featured && b.featured) return 1;
+  return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+});
+---
+
+<Layout title="Samuel Holmes - Full-Stack Developer">
+  <!-- Hero Section -->
+  <section class="min-h-screen flex items-center justify-center px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h1 class="text-5xl md:text-7xl font-bold mb-6">
+        <span class="block text-slate-100">Samuel</span>
+        <span class="block text-slate-100">Holmes</span>
+        <span class="block text-primary">TECH</span>
+      </h1>
+      
+      <p class="text-xl md:text-2xl text-slate-300 mb-8">
+        Full-Stack Developer & Backend Engineer
+      </p>
+      
+      <p class="text-lg text-slate-400 mb-12 max-w-2xl mx-auto">
+        Technicien polyvalent et très curieux. J'ai toujours envie d'apprendre quelque chose de nouveau !
+      </p>
+
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="#projects" 
+           class="px-8 py-3 bg-primary hover:bg-primary-light text-slate-950 font-semibold rounded-lg transition-colors">
+          View Projects
+        </a>
+        <a href="#contact" 
+           class="px-8 py-3 border-2 border-primary hover:bg-primary/10 text-primary font-semibold rounded-lg transition-colors">
+          Get in Touch
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech Stack Section -->
+  <TechStack />
+
+  <!-- Projects Section -->
+  <section id="projects" class="py-20">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">
+          Featured <span class="text-primary">Projects</span>
+        </h2>
+        <p class="text-slate-400 max-w-2xl mx-auto">
+          A selection of my recent work, ranging from web applications to backend systems.
+        </p>
+      </div>
+
+      {sortedProjects.length > 0 ? (
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+          {sortedProjects.map((project) => (
+            <ProjectCard project={project} />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12">
+          <p class="text-slate-400 text-lg">
+            Projects loading... Check back soon!
+          </p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-20 bg-slate-900/50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-8">
+          About <span class="text-primary">Me</span>
+        </h2>
+        
+        <div class="prose prose-invert prose-cyan mx-auto">
+          <p class="text-slate-300 text-lg leading-relaxed mb-6">
+            I'm a versatile full-stack developer with a passion for building performant, 
+            scalable backend systems. While I enjoy working across the entire stack, 
+            I particularly excel in backend engineering with Rust and Go.
+          </p>
+          
+          <p class="text-slate-300 text-lg leading-relaxed mb-6">
+            My experience ranges from crafting modern web applications with React and Next.js 
+            to building robust APIs and microservices. I'm always eager to learn new technologies 
+            and solve complex problems.
+          </p>
+
+          <p class="text-slate-300 text-lg leading-relaxed">
+            When I'm not coding, you'll find me exploring new tech, contributing to open source, 
+            or working on side projects that push my skills further.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-20">
+    <div class="container mx-auto px-4">
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">
+          Let's <span class="text-primary">Connect</span>
+        </h2>
+        
+        <p class="text-slate-400 text-lg mb-8">
+          Interested in working together or just want to say hi? 
+          Feel free to reach out!
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <!-- <a href="mailto:contect@samuelholmes.tech"  -->
+          <!--    class="px-8 py-3 bg-primary hover:bg-primary-light text-slate-950 font-semibold rounded-lg transition-colors"> -->
+          <!--   Email Me -->
+          <!-- </a> -->
+          <a href="https://github.com/Holmes-EH" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="px-8 py-3 border-2 border-slate-700 hover:border-primary text-slate-300 hover:text-primary font-semibold rounded-lg transition-colors">
+            GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/samuel-holmes-eh" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="px-8 py-3 border-2 border-slate-700 hover:border-primary text-slate-300 hover:text-primary font-semibold rounded-lg transition-colors">
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

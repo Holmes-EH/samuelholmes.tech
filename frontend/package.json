@@ -1,0 +1,21 @@
+{
+  "name": "samuelholmes[dot]tech portfolio public website",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "generate": "graphql-codegen --config codegen.yml",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.18",
+    "astro": "^5.17.1",
+    "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^6.1.1",
+    "@graphql-codegen/typescript": "^5.0.7"
+  }
+}

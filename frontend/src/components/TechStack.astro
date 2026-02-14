@@ -1,0 +1,49 @@
+---
+import RustIcon from '../assets/icons/rust.svg?raw';
+import GoIcon from '../assets/icons/go.svg?raw';
+// import ReactIcon from '../assets/icons/react.svg?raw';
+import TypeScriptIcon from '../assets/icons/typescript.svg?raw';
+import NodeIcon from '../assets/icons/node.svg?raw';
+import PostgresIcon from '../assets/icons/postgres.svg?raw';
+import DockerIcon from '../assets/icons/docker.svg?raw';
+import GraphQLIcon from '../assets/icons/graphql.svg?raw';
+
+const technologies = [
+  { name: 'Rust', color: 'text-accent', icon: RustIcon },
+  { name: 'Golang', color: 'text-primary', icon: GoIcon },
+  // { name: 'React', color: 'text-primary', icon: ReactIcon },
+  { name: 'Node.js', color: 'text-accent', icon: NodeIcon },
+  { name: 'TypeScript', color: 'text-accent', icon: TypeScriptIcon },
+  { name: 'PostgreSQL', color: 'text-primary', icon: PostgresIcon },
+  { name: 'Docker', color: 'text-primary', icon: DockerIcon },
+  { name: 'GraphQL', color: 'text-accent', icon: GraphQLIcon },
+];
+---
+
+<section id="stack" class="py-20 bg-slate-900/50">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+      <span class="text-primary">Tech</span> Stack
+    </h2>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+      {technologies.map((tech) => (
+        <div class="group bg-slate-800/50 backdrop-blur border border-slate-700 rounded-lg p-6 hover:border-primary hover:bg-slate-800 transition-all duration-300 text-center">
+          <div class={`w-12 h-12 mx-auto mb-3 ${tech.color} group-hover:scale-110 transition-transform`}>
+            <Fragment set:html={tech.icon} />
+          </div>
+          <h3 class={`text-lg font-semibold ${tech.color}`}>
+            {tech.name}
+          </h3>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-12 text-center">
+      <p class="text-slate-400 max-w-2xl mx-auto">
+        Specializing in performant backend systems (Rust, Go) and modern web applications. 
+        Always learning and exploring new technologies.
+      </p>
+    </div>
+  </div>
+</section>
