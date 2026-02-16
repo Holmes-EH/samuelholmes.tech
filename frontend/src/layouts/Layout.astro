@@ -4,16 +4,18 @@ interface Props {
   description?: string;
 }
 
+import HeaderLogo from '../components/HeaderLogo.astro';
+
 const { title, description = "Full-Stack Developer & Backend Engineer" } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="fr" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
@@ -22,7 +24,7 @@ const { title, description = "Full-Stack Developer & Backend Engineer" } = Astro
       <nav class="container mx-auto px-4 py-4">
         <div class="flex items-center justify-between">
           <a href="/" class="text-xl font-bold text-primary hover:text-primary-light transition-colors">
-            SamuelHolmes.tech
+            <HeaderLogo />
           </a>
           <div class="flex gap-6">
             <a href="#about" class="text-slate-300 hover:text-primary transition-colors">About</a>
