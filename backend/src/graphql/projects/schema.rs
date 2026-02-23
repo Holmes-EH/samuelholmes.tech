@@ -17,7 +17,13 @@ pub struct CreateProjectInput {
 #[derive(InputObject)]
 pub struct UpdateProjectInput {
     pub id: String,
-    pub content: CreateProjectInput,
+    pub title: Option<String>,
+    pub description: Option<String>,
+    pub tech_stack: Option<Vec<String>>,
+    pub github_url: Option<String>,
+    pub live_url: Option<String>,
+    pub image_url: Option<String>,
+    pub featured: Option<bool>,
 }
 
 #[derive(SimpleObject)]

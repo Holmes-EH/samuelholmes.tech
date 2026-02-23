@@ -73,6 +73,50 @@ impl ProjectMutation {
         let id = Uuid::parse_str(&project.id)
             .map_err(|_| AppError::InvalidInput("Invalid project ID format".into()))?;
 
+        let project_from_db: DbProject = sqlx::query_as::<_, DbProject>(
+            r#"
+            SELECT *
+            FROM projects
+            WHERE id = $1
+            "#,
+        )
+        .bind(id)
+        .fetch_one(pool)
+        .await
+        .map_err(|e| match e {
+            sqlx::Error::RowNotFound => AppError::NotFound("Project not found".into()),
+            _ => AppError::DatabaseError(e.to_string()),
+        })?;
+
+        let project_title = match project.title {
+            Some(title) => title,
+            None => project_from_db.title,
+        };
+        let project_description = match project.description {
+            Some(description) => description,
+            None => project_from_db.description,
+        };
+        let project_tech_stack = match project.tech_stack {
+            Some(tech_stack) => tech_stack,
+            None => project_from_db.tech_stack,
+        };
+        let project_github_url = match project.github_url {
+            Some(github_url) => Some(github_url),
+            None => project_from_db.github_url,
+        };
+        let project_live_url = match project.live_url {
+            Some(live_url) => Some(live_url),
+            None => project_from_db.live_url,
+        };
+        let project_image_url = match project.image_url {
+            Some(image_url) => Some(image_url),
+            None => project_from_db.image_url,
+        };
+        let project_featured = match project.featured {
+            Some(featured) => featured,
+            None => project_from_db.featured,
+        };
+
         let db_project: DbProject = sqlx::query_as::<_, DbProject>(
             r#"
             UPDATE projects
@@ -82,13 +126,13 @@ impl ProjectMutation {
             "#
         )
         .bind(id)
-        .bind(&project.content.title)
-        .bind(&project.content.description)
-        .bind(&project.content.tech_stack)
-        .bind(&project.content.github_url)
-        .bind(&project.content.live_url)
-        .bind(&project.content.image_url)
-        .bind(project.content.featured)
+        .bind(&project_title)
+        .bind(&project_description)
+        .bind(&project_tech_stack)
+        .bind(&project_github_url)
+        .bind(&project_live_url)
+        .bind(&project_image_url)
+        .bind(project_featured)
         .fetch_one(pool)
         .await
         .map_err(|e| match e {
