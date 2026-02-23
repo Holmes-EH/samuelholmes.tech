@@ -10,10 +10,11 @@ const { project } = Astro.props;
 
 <article class="group bg-slate-900 border border-slate-800 rounded-lg overflow-hidden hover:border-primary transition-all duration-300">
   {project.imageUrl && (
-    <div class="aspect-video overflow-hidden bg-slate-800">
+    <div class="aspect-square overflow-hidden bg-slate-800">
       <img 
-        src={project.imageUrl} 
+        src={project.imageUrl}
         alt={project.title}
+        loading="lazy"
         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
       />
     </div>
@@ -31,7 +32,7 @@ const { project } = Astro.props;
       )}
     </div>
 
-    <p class="text-slate-400 mb-4 leading-relaxed">
+    <p class="text-slate-400 mb-4 leading-relaxed whitespace-pre-line">
       {project.description}
     </p>
 

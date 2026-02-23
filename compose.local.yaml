@@ -2,7 +2,7 @@ name: portfolio-local
 services:
   database:
     container_name: postgres
-    image: postgres:16
+    image: postgres:16-alpine
     restart: always
     volumes:
       - ./db-data:/var/lib/postgresql/data
