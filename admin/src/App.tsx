@@ -5,6 +5,7 @@ import {
   cookieStorageManagerSSR,
 } from "@kobalte/core";
 import { Button } from "@/components/ui/Button";
+import ModeToggle from "@/components/ModeToggle";
 
 const App: Component = () => {
   const storageManager = cookieStorageManagerSSR(document.cookie);
@@ -12,6 +13,7 @@ const App: Component = () => {
     <>
       <ColorModeScript storageType={storageManager.type} />
       <ColorModeProvider storageManager={storageManager}>
+        <ModeToggle />
         <div class="bg-background text-foreground">
           <p>Hello tailwind & Solid-shadcn</p>
         </div>
