@@ -7,7 +7,7 @@ import {
 import { Button } from "@/components/ui/Button";
 import ModeToggle from "@/components/ModeToggle";
 
-const App: Component = () => {
+const Home: Component = () => {
   const storageManager = cookieStorageManagerSSR(document.cookie);
   return (
     <>
@@ -23,4 +23,4 @@ const App: Component = () => {
   );
 };
 
-export default App;
+export default Home;
