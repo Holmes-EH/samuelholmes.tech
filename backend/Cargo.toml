@@ -24,3 +24,4 @@ argon2 = "0.5.3"
 jsonwebtoken = { version = "10", features = ["rust_crypto"] }
 serde = "1.0.228"
 colored = "3.1.1"
+tower-http = { version = "0.6.8", features = ['cors'] }

@@ -36,7 +36,7 @@ impl ErrorExtensions for AppError {
                 err = err.extend_with(|_, e| e.set("code", "DATABASE_ERROR"))
             }
             AppError::Unauthorized(_) => {
-                err = err.extend_with(|_, e| e.set("code", "AUTHORIZATION_ERROR"))
+                err = err.extend_with(|_, e| e.set("code", "UNAUTHORIZED"))
             }
             AppError::InternalError(_) => {
                 err = err.extend_with(|_, e| e.set("code", "SERVER_ERROR"))

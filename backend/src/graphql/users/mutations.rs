@@ -13,7 +13,12 @@ use crate::{
     graphql::{
         error::AppError,
         guard::{AuthGuard, Claims},
-        users::schema::{CreateUserInput, LoginResponse, UpdateUserInput, User},
+        users::schema::{
+            // CreateUserInput,
+            LoginResponse,
+            UpdateUserInput,
+            User,
+        },
     },
 };
 
@@ -22,50 +27,50 @@ pub struct UserMutation;
 
 #[Object]
 impl UserMutation {
-    async fn create_user(&self, ctx: &Context<'_>, new_user: CreateUserInput) -> Result<User> {
-        let pool = ctx
-            .data::<PgPool>()
-            .map_err(|_| AppError::DatabaseError("Database pool not available".into()))?;
-
-        let salt = SaltString::generate(&mut OsRng);
-        let argon2 = Argon2::default();
-        let pwd_hash = argon2
-            .hash_password(new_user.password.as_bytes(), &salt)
-            .map_err(|_| AppError::InternalError("Error hashing password".into()))?
-            .to_string();
-
-        let db_user: DbUser = sqlx::query_as::<_, DbUser>(
-            r#"
-            INSERT INTO users (name, email, password)
-            VALUES ($1, $2, $3)
-            RETURNING id, name, email, password, created_at, updated_at;
-            "#,
-        )
-        .bind(&new_user.name)
-        .bind(&new_user.email)
-        .bind(pwd_hash)
-        .fetch_one(pool)
-        .await
-        .map_err(|e| match e {
-            sqlx::Error::Database(db_err) if db_err.constraint() == Some("users_name_key") => {
-                AppError::InvalidInput("A user with this name already exists".into())
-            }
-            sqlx::Error::Database(db_err) => {
-                println!("HERE in map_err");
-                // Generic unique constraint violation (code 23505)
-                if db_err.code().as_deref() == Some("23505") {
-                    AppError::InvalidInput("Duplicate value violates unique constraint".into())
-                } else {
-                    AppError::DatabaseError(db_err.to_string())
-                }
-            }
-            _ => AppError::DatabaseError(e.to_string()),
-        })?;
-
-        println!("{:#?}", db_user.password);
-
-        Ok(db_user.into())
-    }
+    // async fn create_user(&self, ctx: &Context<'_>, new_user: CreateUserInput) -> Result<User> {
+    //     let pool = ctx
+    //         .data::<PgPool>()
+    //         .map_err(|_| AppError::DatabaseError("Database pool not available".into()))?;
+    //
+    //     let salt = SaltString::generate(&mut OsRng);
+    //     let argon2 = Argon2::default();
+    //     let pwd_hash = argon2
+    //         .hash_password(new_user.password.as_bytes(), &salt)
+    //         .map_err(|_| AppError::InternalError("Error hashing password".into()))?
+    //         .to_string();
+    //
+    //     let db_user: DbUser = sqlx::query_as::<_, DbUser>(
+    //         r#"
+    //         INSERT INTO users (name, email, password)
+    //         VALUES ($1, $2, $3)
+    //         RETURNING id, name, email, password, created_at, updated_at;
+    //         "#,
+    //     )
+    //     .bind(&new_user.name)
+    //     .bind(&new_user.email)
+    //     .bind(pwd_hash)
+    //     .fetch_one(pool)
+    //     .await
+    //     .map_err(|e| match e {
+    //         sqlx::Error::Database(db_err) if db_err.constraint() == Some("users_name_key") => {
+    //             AppError::InvalidInput("A user with this name already exists".into())
+    //         }
+    //         sqlx::Error::Database(db_err) => {
+    //             println!("HERE in map_err");
+    //             // Generic unique constraint violation (code 23505)
+    //             if db_err.code().as_deref() == Some("23505") {
+    //                 AppError::InvalidInput("Duplicate value violates unique constraint".into())
+    //             } else {
+    //                 AppError::DatabaseError(db_err.to_string())
+    //             }
+    //         }
+    //         _ => AppError::DatabaseError(e.to_string()),
+    //     })?;
+    //
+    //     println!("{:#?}", db_user.password);
+    //
+    //     Ok(db_user.into())
+    // }
 
     #[graphql(guard = "AuthGuard")]
     async fn update_me(&self, ctx: &Context<'_>, user: UpdateUserInput) -> Result<User> {

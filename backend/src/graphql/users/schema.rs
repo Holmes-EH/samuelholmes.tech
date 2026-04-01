@@ -2,12 +2,12 @@ use async_graphql::{InputObject, SimpleObject};
 
 use crate::db::models::DbUser;
 
-#[derive(InputObject)]
-pub struct CreateUserInput {
-    pub name: String,
-    pub email: String,
-    pub password: String,
-}
+// #[derive(InputObject)]
+// pub struct CreateUserInput {
+//     pub name: String,
+//     pub email: String,
+//     pub password: String,
+// }
 
 #[derive(InputObject)]
 pub struct UpdateUserInput {

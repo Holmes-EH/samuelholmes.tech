@@ -1,9 +1,15 @@
 use std::process;
 
 use async_graphql_axum::{GraphQLRequest, GraphQLResponse};
-use axum::{Extension, Router, middleware, routing::post};
+use axum::{
+    Extension, Router,
+    http::{Method, header},
+    middleware,
+    routing::post,
+};
 use sqlx::{Connection, PgConnection, postgres::PgPoolOptions};
 use tokio::net::TcpListener;
+use tower_http::cors::{Any, CorsLayer};
 use uuid::Uuid;
 
 use crate::{
@@ -47,9 +53,15 @@ async fn main() {
         process::exit(1);
     };
 
+    let cors = CorsLayer::new()
+        .allow_origin(Any)
+        .allow_methods([Method::GET, Method::POST, Method::OPTIONS])
+        .allow_headers([header::AUTHORIZATION, header::ACCEPT, header::CONTENT_TYPE]);
+
     let schema = build_schema(db_pool);
     let app = Router::new()
         .route("/graphql", post(graphql_handler))
+        .layer(cors)
         .layer(Extension(schema))
         .layer(middleware::from_fn(extract_user_id_from_token));
 
