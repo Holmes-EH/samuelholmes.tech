@@ -24,12 +24,6 @@ export type CreateProjectInput = {
   title: Scalars['String']['input'];
 };
 
-export type CreateUserInput = {
-  email: Scalars['String']['input'];
-  name: Scalars['String']['input'];
-  password: Scalars['String']['input'];
-};
-
 export type LoginResponse = {
   __typename?: 'LoginResponse';
   token: Scalars['String']['output'];
@@ -39,7 +33,6 @@ export type LoginResponse = {
 export type MutationRoot = {
   __typename?: 'MutationRoot';
   createProject: Project;
-  createUser: User;
   deleteProject: Scalars['Int']['output'];
   loginUser: LoginResponse;
   updateMe: User;
@@ -49,11 +42,6 @@ export type MutationRoot = {
 
 export type MutationRootCreateProjectArgs = {
   newProject: CreateProjectInput;
-};
-
-
-export type MutationRootCreateUserArgs = {
-  newUser: CreateUserInput;
 };
 
 
@@ -104,8 +92,14 @@ export type QueryRootGetProjectArgs = {
 };
 
 export type UpdateProjectInput = {
-  content: CreateProjectInput;
+  description?: InputMaybe<Scalars['String']['input']>;
+  featured?: InputMaybe<Scalars['Boolean']['input']>;
+  githubUrl?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['String']['input'];
+  imageUrl?: InputMaybe<Scalars['String']['input']>;
+  liveUrl?: InputMaybe<Scalars['String']['input']>;
+  techStack?: InputMaybe<Array<Scalars['String']['input']>>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type UpdateUserInput = {
