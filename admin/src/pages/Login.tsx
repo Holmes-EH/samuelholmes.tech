@@ -16,6 +16,15 @@ import {
   TextFieldLabel,
 } from "@/components/ui/text-field";
 import { Button } from "@/components/ui/button";
+import { createEffect } from "solid-js";
+import { useNavigate } from "@solidjs/router";
+import { useAuth } from "@/contexts/AuthContext";
+import { gql } from "graphql-request";
+import { useMutation } from "@tanstack/solid-query";
+import { useGraphQLClient } from "@/lib/graphql";
+import { LoginResponse, MutationRootLoginUserArgs } from "@/generated/graphql";
+import { useErrorHandler } from "@/lib/errors";
+import { useToast } from "@/contexts/ToastContext";
 
 const formSchema = v.object({
   email: v.pipe(v.string(), v.email()),
@@ -24,7 +33,45 @@ const formSchema = v.object({
 
 type formSchemaType = v.InferInput<typeof formSchema>;
 
-const LoginForm = () => {
+const LOGIN_USER = gql`
+  mutation LoginUser($email: String!, $password: String!) {
+    loginUser(email: $email, password: $password) {
+      token
+      user {
+        id
+        name
+        email
+      }
+    }
+  }
+`;
+
+const Login = () => {
+  const navigate = useNavigate();
+  const { isAuthenticated, login } = useAuth();
+  const client = useGraphQLClient();
+  const toast = useToast();
+  const handleError = useErrorHandler();
+
+  const loginMutation = useMutation(() => ({
+    mutationFn: async (input: MutationRootLoginUserArgs) => {
+      const data = await client.request<{ loginUser: LoginResponse }>(
+        LOGIN_USER,
+        {
+          email: input.email,
+          password: input.password,
+        },
+      );
+      return data.loginUser;
+    },
+  }));
+
+  createEffect(() => {
+    if (isAuthenticated()) {
+      navigate("/dashboard", { replace: true });
+    }
+  });
+
   const form = createForm(() => ({
     defaultValues: {
       email: "",
@@ -33,9 +80,16 @@ const LoginForm = () => {
     validators: {
       onSubmit: formSchema,
     },
-    onSubmit: async ({ value }) => {
-      // Do something with form data
-      console.log(value);
+    onSubmit: async ({ value: { email, password } }) => {
+      try {
+        const loginUser = await loginMutation.mutateAsync({ email, password });
+        toast.success(`Hello ${loginUser.user.name}`);
+        login(loginUser.token);
+        navigate("/dashboard");
+      } catch (error) {
+        console.log(error);
+        handleError(error, "Failed to Login User");
+      }
     },
   }));
   return (
@@ -107,4 +161,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default Login;
