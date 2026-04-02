@@ -1,13 +1,7 @@
 // src/pages/Dashboard.tsx
 import { A } from "@solidjs/router";
 import { For, Show } from "solid-js";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
 import { useQuery } from "@tanstack/solid-query";
 import { useGraphQLClient } from "@/lib/graphql";
@@ -29,13 +23,7 @@ export default function Dashboard() {
   const { user } = useAuth();
   const client = useGraphQLClient();
 
-  // You'll wire up: projectsQuery, stats calculation, etc.
-
   const projects = projectsQuery(client);
-
-  // const stats = [
-
-  // ];
 
   const quickActions = [
     {
