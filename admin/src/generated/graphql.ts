@@ -117,3 +117,16 @@ export type User = {
   name: Scalars['String']['output'];
   updatedAt: Scalars['String']['output'];
 };
+
+export type LoginUserMutationVariables = Exact<{
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
+}>;
+
+
+export type LoginUserMutation = { __typename?: 'MutationRoot', loginUser: { __typename?: 'LoginResponse', token: string, user: { __typename?: 'User', id: string, name: string, email: string } } };
+
+export type ListProjectsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ListProjectsQuery = { __typename?: 'QueryRoot', listProjects: Array<{ __typename?: 'Project', id: string, featured: boolean, createdAt: string, updatedAt: string }> };

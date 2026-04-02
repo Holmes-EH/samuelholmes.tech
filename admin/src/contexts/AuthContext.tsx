@@ -1,3 +1,4 @@
+import { User } from "@/generated/graphql";
 import { useQueryClient } from "@tanstack/solid-query";
 import {
   createContext,
@@ -9,9 +10,10 @@ import {
 
 type AuthContextType = {
   isAuthenticated: () => boolean;
-  login: (token: string) => void;
+  login: (token: string, user: User) => void;
   logout: () => void;
   token: () => string | null;
+  user: () => User | null;
 };
 
 const AuthContext = createContext<AuthContextType>();
@@ -19,6 +21,7 @@ const AuthContext = createContext<AuthContextType>();
 export function AuthProvider(props: { children: JSX.Element }) {
   const [authenticated, setAuthenticated] = createSignal(false);
   const [token, setToken] = createSignal<string | null>(null);
+  const [user, setUser] = createSignal<User | null>(null);
   const queryClient = useQueryClient();
 
   onMount(() => {
@@ -39,15 +42,17 @@ export function AuthProvider(props: { children: JSX.Element }) {
     }
   });
 
-  const login = (newToken: string) => {
+  const login = (newToken: string, user: User) => {
     localStorage.setItem("jwt", newToken);
     setToken(newToken);
+    setUser(user);
     setAuthenticated(true);
   };
 
   const logout = () => {
     localStorage.removeItem("jwt");
     setToken(null);
+    setUser(null);
     setAuthenticated(false);
 
     queryClient.clear();
@@ -60,6 +65,7 @@ export function AuthProvider(props: { children: JSX.Element }) {
         token,
         login,
         logout,
+        user,
       }}
     >
       {props.children}

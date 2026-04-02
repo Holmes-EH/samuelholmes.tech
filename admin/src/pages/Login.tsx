@@ -19,12 +19,12 @@ import { Button } from "@/components/ui/button";
 import { createEffect } from "solid-js";
 import { useNavigate } from "@solidjs/router";
 import { useAuth } from "@/contexts/AuthContext";
-import { gql } from "graphql-request";
 import { useMutation } from "@tanstack/solid-query";
 import { useGraphQLClient } from "@/lib/graphql";
 import { LoginResponse, MutationRootLoginUserArgs } from "@/generated/graphql";
 import { useErrorHandler } from "@/lib/errors";
 import { useToast } from "@/contexts/ToastContext";
+import { LOGIN_USER } from "@/lib/gql";
 
 const formSchema = v.object({
   email: v.pipe(v.string(), v.email()),
@@ -32,19 +32,6 @@ const formSchema = v.object({
 });
 
 type formSchemaType = v.InferInput<typeof formSchema>;
-
-const LOGIN_USER = gql`
-  mutation LoginUser($email: String!, $password: String!) {
-    loginUser(email: $email, password: $password) {
-      token
-      user {
-        id
-        name
-        email
-      }
-    }
-  }
-`;
 
 const Login = () => {
   const navigate = useNavigate();
@@ -84,7 +71,7 @@ const Login = () => {
       try {
         const loginUser = await loginMutation.mutateAsync({ email, password });
         toast.success(`Hello ${loginUser.user.name}`);
-        login(loginUser.token);
+        login(loginUser.token, loginUser.user);
         navigate("/dashboard");
       } catch (error) {
         console.log(error);
