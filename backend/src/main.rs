@@ -9,18 +9,23 @@ use axum::{
 };
 use sqlx::{Connection, PgConnection, postgres::PgPoolOptions};
 use tokio::net::TcpListener;
-use tower_http::cors::{Any, CorsLayer};
+use tower_http::{
+    cors::{Any, CorsLayer},
+    services::ServeDir,
+};
 use uuid::Uuid;
 
 use crate::{
     auth_middleware::extract_user_id_from_token,
     graphql::{build_schema, schema::AppSchema},
+    upload_handler::upload_image_handler,
     utils::{log_error, log_info},
 };
 
 mod auth_middleware;
 mod db;
 mod graphql;
+mod upload_handler;
 mod utils;
 
 #[tokio::main]
@@ -33,6 +38,8 @@ async fn main() {
             process::exit(1)
         }
     };
+
+    let upload_dir = std::env::var("UPLOAD_DIR").unwrap_or_else(|_| "./uploads/images".to_string());
 
     test_db_connection(&database_url).await;
 
@@ -61,6 +68,8 @@ async fn main() {
     let schema = build_schema(db_pool);
     let app = Router::new()
         .route("/graphql", post(graphql_handler))
+        .route("/upload", post(upload_image_handler))
+        .nest_service("/images", ServeDir::new(&upload_dir))
         .layer(cors)
         .layer(Extension(schema))
         .layer(middleware::from_fn(extract_user_id_from_token));

@@ -1,4 +1,4 @@
-mod error;
+pub mod error;
 pub mod guard;
 mod projects;
 pub mod schema;

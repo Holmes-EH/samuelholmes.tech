@@ -7,7 +7,7 @@ edition = "2024"
 uuid = { version = "1.20.0", features = ["v7"] }
 async-graphql = "7.2.1"
 async-graphql-axum = "7.2.1"
-axum = "0.8.8"
+axum = { version = "0.8.8", features = ["multipart"] }
 chrono = { version = "0.4.43", features = ["serde"] }
 context = "3.0.0"
 dotenvy = "0.15.7"
@@ -24,4 +24,5 @@ argon2 = "0.5.3"
 jsonwebtoken = { version = "10", features = ["rust_crypto"] }
 serde = "1.0.228"
 colored = "3.1.1"
-tower-http = { version = "0.6.8", features = ['cors'] }
+tower-http = { version = "0.6.8", features = ['cors', 'fs'] }
+async-trait = "0.1.89"
