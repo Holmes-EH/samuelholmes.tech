@@ -129,4 +129,11 @@ export type LoginUserMutation = { __typename?: 'MutationRoot', loginUser: { __ty
 export type ListProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ListProjectsQuery = { __typename?: 'QueryRoot', listProjects: Array<{ __typename?: 'Project', id: string, featured: boolean, createdAt: string, updatedAt: string }> };
+export type ListProjectsQuery = { __typename?: 'QueryRoot', listProjects: Array<{ __typename?: 'Project', id: string, title: string, description: string, techStack: Array<string>, githubUrl?: string | null, liveUrl?: string | null, imageUrl?: string | null, featured: boolean, createdAt: string, updatedAt: string }> };
+
+export type CreateProjectMutationVariables = Exact<{
+  newProject: CreateProjectInput;
+}>;
+
+
+export type CreateProjectMutation = { __typename?: 'MutationRoot', createProject: { __typename?: 'Project', id: string, title: string, description: string, techStack: Array<string>, githubUrl?: string | null, liveUrl?: string | null, imageUrl?: string | null, featured: boolean, createdAt: string, updatedAt: string } };

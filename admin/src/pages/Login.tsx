@@ -19,12 +19,10 @@ import { Button } from "@/components/ui/button";
 import { createEffect } from "solid-js";
 import { useNavigate } from "@solidjs/router";
 import { useAuth } from "@/contexts/AuthContext";
-import { useMutation } from "@tanstack/solid-query";
 import { useGraphQLClient } from "@/lib/graphql";
-import { LoginResponse, MutationRootLoginUserArgs } from "@/generated/graphql";
 import { useErrorHandler } from "@/lib/errors";
 import { useToast } from "@/contexts/ToastContext";
-import { LOGIN_USER } from "@/lib/gql";
+import { loginMutation } from "@/lib/graphql/mutations";
 
 const formSchema = v.object({
   email: v.pipe(v.string(), v.email()),
@@ -40,18 +38,7 @@ const Login = () => {
   const toast = useToast();
   const handleError = useErrorHandler();
 
-  const loginMutation = useMutation(() => ({
-    mutationFn: async (input: MutationRootLoginUserArgs) => {
-      const data = await client.request<{ loginUser: LoginResponse }>(
-        LOGIN_USER,
-        {
-          email: input.email,
-          password: input.password,
-        },
-      );
-      return data.loginUser;
-    },
-  }));
+  const loginRequest = loginMutation(client);
 
   createEffect(() => {
     if (isAuthenticated()) {
@@ -69,7 +56,7 @@ const Login = () => {
     },
     onSubmit: async ({ value: { email, password } }) => {
       try {
-        const loginUser = await loginMutation.mutateAsync({ email, password });
+        const loginUser = await loginRequest.mutateAsync({ email, password });
         toast.success(`Hello ${loginUser.user.name}`);
         login(loginUser.token, loginUser.user);
         navigate("/dashboard");

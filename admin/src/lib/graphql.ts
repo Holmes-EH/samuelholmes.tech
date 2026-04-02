@@ -1,11 +1,11 @@
 import { useAuth } from "@/contexts/AuthContext";
 import { GraphQLClient } from "graphql-request";
 
-const GRAPHQL_URL =
-  import.meta.env.VITE_GRAPHQL_URL || "http://localhost:8000/graphql";
+export const BACKEND_URL =
+  import.meta.env.VITE_BACKEND_URL || "http://localhost:8000";
 
 export function createGraphQLClient(token: string | null) {
-  return new GraphQLClient(GRAPHQL_URL, {
+  return new GraphQLClient(`${BACKEND_URL}/graphql`, {
     headers: token
       ? {
           Authorization: `Bearer ${token}`,

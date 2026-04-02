@@ -25,7 +25,8 @@ export function AuthProvider(props: { children: JSX.Element }) {
   const queryClient = useQueryClient();
 
   onMount(() => {
-    const storedToken = localStorage.getItem("jwt");
+    const storedToken = localStorage.getItem("sh.tech-jwt");
+    const storedUser = JSON.parse(localStorage.getItem("sh.tech-user") ?? "{}");
     if (storedToken) {
       try {
         const payload = JSON.parse(atob(storedToken.split(".")[1]));
@@ -34,6 +35,9 @@ export function AuthProvider(props: { children: JSX.Element }) {
           return;
         }
         setToken(storedToken);
+        if (storedUser) {
+          setUser(storedUser);
+        }
         setAuthenticated(true);
       } catch {
         logout();
@@ -43,14 +47,16 @@ export function AuthProvider(props: { children: JSX.Element }) {
   });
 
   const login = (newToken: string, user: User) => {
-    localStorage.setItem("jwt", newToken);
+    localStorage.setItem("sh.tech-jwt", newToken);
+    localStorage.setItem("sh.tech-user", JSON.stringify(user));
     setToken(newToken);
     setUser(user);
     setAuthenticated(true);
   };
 
   const logout = () => {
-    localStorage.removeItem("jwt");
+    localStorage.removeItem("sh.tech-jwt");
+    localStorage.removeItem("sh.tech-user");
     setToken(null);
     setUser(null);
     setAuthenticated(false);

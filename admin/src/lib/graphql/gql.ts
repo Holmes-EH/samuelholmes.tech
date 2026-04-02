@@ -17,6 +17,29 @@ export const LIST_PROJECTS = gql`
   query ListProjects {
     listProjects {
       id
+      title
+      description
+      techStack
+      githubUrl
+      liveUrl
+      imageUrl
+      featured
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+export const CREATE_PROJECT = gql`
+  mutation CreateProject($newProject: CreateProjectInput!) {
+    createProject(newProject: $newProject) {
+      id
+      title
+      description
+      techStack
+      githubUrl
+      liveUrl
+      imageUrl
       featured
       createdAt
       updatedAt

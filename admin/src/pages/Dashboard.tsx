@@ -1,23 +1,10 @@
-// src/pages/Dashboard.tsx
 import { A } from "@solidjs/router";
 import { For, Show } from "solid-js";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/contexts/AuthContext";
-import { useQuery } from "@tanstack/solid-query";
 import { useGraphQLClient } from "@/lib/graphql";
-import { ListProjectsQuery } from "@/generated/graphql";
-import { GraphQLClient } from "graphql-request";
 import Stats from "@/components/dashboard/Stats";
-import { LIST_PROJECTS } from "@/lib/gql";
-
-const projectsQuery = (client: GraphQLClient) =>
-  useQuery(() => ({
-    queryKey: ["listProjects"],
-    queryFn: async () => {
-      const projects = await client.request<ListProjectsQuery>(LIST_PROJECTS);
-      return projects;
-    },
-  }));
+import { projectsQuery } from "@/lib/graphql/queries";
 
 export default function Dashboard() {
   const { user } = useAuth();

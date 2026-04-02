@@ -31,8 +31,8 @@ const buildStatsFromProjectList = (projectsList: ListProjectsQuery): Stat[] => {
     icon: "⭐",
   });
 
-  const lastUpdatedProject = projects.sort((a, b) =>
-    new Date(a.updatedAt) > new Date(b.updatedAt) ? 1 : -1,
+  const lastUpdatedProject = [...projects].sort((a, b) =>
+    new Date(a.updatedAt) < new Date(b.updatedAt) ? 1 : -1,
   )[0];
 
   if (lastUpdatedProject !== undefined) {

@@ -1,5 +1,5 @@
 schema: http://localhost:8000/graphql
-documents: ./src/lib/gql.ts
+documents: ./src/lib/graphql/gql.ts
 generates:
   ./src/generated/graphql.ts:
     plugins:
