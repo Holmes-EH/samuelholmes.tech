@@ -17,6 +17,7 @@ use uuid::Uuid;
 
 use crate::{
     auth_middleware::extract_user_id_from_token,
+    db::seed,
     graphql::{build_schema, schema::AppSchema},
     upload_handler::upload_image_handler,
     utils::{log_error, log_info},
@@ -59,6 +60,10 @@ async fn main() {
         log_error(format!("error running migrations : {err}"));
         process::exit(1);
     };
+    if let Err(err) = seed::ensure_admin(&db_pool).await {
+        log_error(format!("error seeding : {err}"));
+        process::exit(1);
+    };
 
     let cors = CorsLayer::new()
         .allow_origin(Any)
@@ -97,6 +102,18 @@ fn validate_env() {
     }
     if dotenvy::var("JWT_SECRET").is_err() {
         log_error("JWT_SECRET must be set in environment");
+        process::exit(1)
+    }
+    if dotenvy::var("SEED_USER").is_err() {
+        log_error("SEED_USER must be set in environment");
+        process::exit(1)
+    }
+    if dotenvy::var("SEED_EMAIL").is_err() {
+        log_error("SEED_EMAIL must be set in environment");
+        process::exit(1)
+    }
+    if dotenvy::var("SEED_PASS").is_err() {
+        log_error("SEED_PASS must be set in environment");
         process::exit(1)
     }
 }
