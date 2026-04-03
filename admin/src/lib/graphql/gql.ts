@@ -46,3 +46,37 @@ export const CREATE_PROJECT = gql`
     }
   }
 `;
+
+export const GET_PROJECT = gql`
+  query GetProject($id: String!) {
+    getProject(projectId: $id) {
+      id
+      title
+      description
+      techStack
+      githubUrl
+      liveUrl
+      imageUrl
+      featured
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+export const UPDATE_PROJECT = gql`
+  mutation UpdateProject($project: UpdateProjectInput!) {
+    updateProject(project: $project) {
+      id
+      title
+      description
+      techStack
+      githubUrl
+      liveUrl
+      imageUrl
+      featured
+      createdAt
+      updatedAt
+    }
+  }
+`;

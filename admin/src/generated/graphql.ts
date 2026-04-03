@@ -137,3 +137,10 @@ export type CreateProjectMutationVariables = Exact<{
 
 
 export type CreateProjectMutation = { __typename?: 'MutationRoot', createProject: { __typename?: 'Project', id: string, title: string, description: string, techStack: Array<string>, githubUrl?: string | null, liveUrl?: string | null, imageUrl?: string | null, featured: boolean, createdAt: string, updatedAt: string } };
+
+export type GetProjectQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+
+export type GetProjectQuery = { __typename?: 'QueryRoot', getProject: { __typename?: 'Project', id: string, title: string, description: string, techStack: Array<string>, githubUrl?: string | null, liveUrl?: string | null, imageUrl?: string | null, featured: boolean, createdAt: string, updatedAt: string } };
