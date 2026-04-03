@@ -42,7 +42,7 @@ const Login = () => {
 
   createEffect(() => {
     if (isAuthenticated()) {
-      navigate("/dashboard", { replace: true });
+      navigate("/", { replace: true });
     }
   });
 
@@ -59,7 +59,7 @@ const Login = () => {
         const loginUser = await loginRequest.mutateAsync({ email, password });
         toast.success(`Hello ${loginUser.user.name}`);
         login(loginUser.token, loginUser.user);
-        navigate("/dashboard");
+        navigate("/");
       } catch (error) {
         console.log(error);
         handleError(error, "Failed to Login User");

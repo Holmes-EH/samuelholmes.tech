@@ -27,7 +27,7 @@ const Layout = (props: RouteSectionProps<unknown>) => {
                 <h1 class="text-xl font-bold text-primary">Admin Panel</h1>
                 <div class="flex gap-4">
                   <A
-                    href="/dashboard"
+                    href="/"
                     class="text-slate-300 hover:text-primary transition-colors"
                   >
                     Dashboard

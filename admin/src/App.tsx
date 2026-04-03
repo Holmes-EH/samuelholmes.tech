@@ -12,16 +12,16 @@ export default function App() {
     <Router root={Layout}>
       <Route path="/login" component={Login} />
       <Route
-        path="/dashboard"
-        component={() => <ProtectedRoute component={Dashboard} />}
-      />
-      <Route
         path="/projects"
         component={() => <ProtectedRoute component={Projects} />}
       />
       <Route
         path="/projects/new"
         component={() => <ProtectedRoute component={NewProject} />}
+      />
+      <Route
+        path="/"
+        component={() => <ProtectedRoute component={Dashboard} />}
       />
     </Router>
   );
