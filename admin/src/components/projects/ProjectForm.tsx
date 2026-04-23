@@ -25,7 +25,6 @@ import {
   TextFieldTextArea,
 } from "@/components/ui/text-field";
 import { ImageUpload } from "@/components/ImageUpload";
-import { useNavigate } from "@solidjs/router";
 
 export interface ProjectFormData {
   title: string;
@@ -48,17 +47,16 @@ interface ProjectFormProps {
 export function ProjectForm(props: ProjectFormProps) {
   let techInput: HTMLInputElement | undefined;
   const [techStackInput, setTechStackInput] = createSignal("");
-  const navigate = useNavigate();
 
   const form = createForm(() => ({
     defaultValues: {
-      title: props.initialValues?.title || "",
-      description: props.initialValues?.description || "",
-      techStack: props.initialValues?.techStack || [],
-      githubUrl: props.initialValues?.githubUrl || "",
-      liveUrl: props.initialValues?.liveUrl || "",
-      imageUrl: props.initialValues?.imageUrl || "",
-      featured: props.initialValues?.featured || false,
+      title: props.initialValues?.title ?? "",
+      description: props.initialValues?.description ?? "",
+      techStack: props.initialValues?.techStack ?? [],
+      githubUrl: props.initialValues?.githubUrl ?? "",
+      liveUrl: props.initialValues?.liveUrl ?? "",
+      imageUrl: props.initialValues?.imageUrl ?? "",
+      featured: props.initialValues?.featured ?? false,
     },
     onSubmit: async ({ value }) => {
       await props.onSubmit(value as ProjectFormData);
@@ -81,6 +79,7 @@ export function ProjectForm(props: ProjectFormProps) {
       if (!currentStack.includes(tech)) {
         form.setFieldValue("techStack", [...currentStack, tech]);
         setTechStackInput("");
+        techInput?.focus();
       }
     }
   };
@@ -99,6 +98,7 @@ export function ProjectForm(props: ProjectFormProps) {
         e.preventDefault();
         form.handleSubmit();
       }}
+      class="w-full max-w-5xl mx-auto"
     >
       <Card>
         <CardHeader>
@@ -109,50 +109,46 @@ export function ProjectForm(props: ProjectFormProps) {
         </CardHeader>
 
         <CardContent class="space-y-6">
-          {/* Title Field */}
+          {/* Row 1: Title (full width) */}
           <form.Field name="title">
             {(field) => (
-              <div class="space-y-2">
-                <TextField
-                  name={field().name}
-                  value={field().state.value}
-                  onChange={field().handleChange}
-                  onBlur={() => field().handleBlur()}
-                >
-                  <TextFieldLabel for="title">
-                    Title <span class="text-red-500">*</span>
-                  </TextFieldLabel>
-                  <TextFieldInput placeholder="My Awesome Project" />
-                  <TextFieldErrorMessage errors={field().state.meta.errors} />
-                </TextField>
-              </div>
+              <TextField
+                name={field().name}
+                value={field().state.value}
+                onChange={field().handleChange}
+                onBlur={() => field().handleBlur()}
+              >
+                <TextFieldLabel for="title">
+                  Title <span class="text-red-500">*</span>
+                </TextFieldLabel>
+                <TextFieldInput id="title" placeholder="My Awesome Project" />
+                <TextFieldErrorMessage errors={field().state.meta.errors} />
+              </TextField>
             )}
           </form.Field>
 
-          {/* Description Field */}
+          {/* Row 2: Description (full width) */}
           <form.Field name="description">
             {(field) => (
-              <div class="space-y-2">
-                <TextField
-                  name={field().name}
-                  value={field().state.value}
-                  onChange={field().handleChange}
-                  onBlur={() => field().handleBlur()}
-                >
-                  <TextFieldLabel for="description">
-                    Description <span class="text-red-500">*</span>
-                  </TextFieldLabel>
-                  <TextFieldTextArea rows={4} />
-                  <p class="text-sm text-slate-500">
-                    {field().state.value.length} characters
-                  </p>
-                  <TextFieldErrorMessage errors={field().state.meta.errors} />
-                </TextField>
-              </div>
+              <TextField
+                name={field().name}
+                value={field().state.value}
+                onChange={field().handleChange}
+                onBlur={() => field().handleBlur()}
+              >
+                <TextFieldLabel for="description">
+                  Description <span class="text-red-500">*</span>
+                </TextFieldLabel>
+                <TextFieldTextArea id="description" rows={5} />
+                <p class="text-sm text-slate-500">
+                  {field().state.value.length} characters
+                </p>
+                <TextFieldErrorMessage errors={field().state.meta.errors} />
+              </TextField>
             )}
           </form.Field>
 
-          {/* Tech Stack Field */}
+          {/* Row 3: Tech Stack (full width) */}
           <form.Field name="techStack">
             {(field) => (
               <div class="space-y-2">
@@ -178,33 +174,33 @@ export function ProjectForm(props: ProjectFormProps) {
                       Add
                     </Button>
                   </div>
-                  <Show when={field().state.value.length > 0}>
-                    <div class="flex flex-wrap gap-2 mt-2">
-                      <For each={field().state.value}>
-                        {(tech) => (
-                          <Badge class="pl-3 pr-1">
-                            {tech}
-                            <button
-                              type="button"
-                              onClick={() => removeTech(tech)}
-                              class="ml-2 hover:text-red-500 transition-colors hover:cursor-pointer"
-                            >
-                              ✕
-                            </button>
-                          </Badge>
-                        )}
-                      </For>
-                    </div>
-                  </Show>
                 </TextField>
+                <Show when={field().state.value.length > 0}>
+                  <div class="flex flex-wrap gap-2 mt-2">
+                    <For each={field().state.value}>
+                      {(tech) => (
+                        <Badge class="pl-3 pr-1">
+                          {tech}
+                          <button
+                            type="button"
+                            onClick={() => removeTech(tech)}
+                            class="ml-2 hover:text-red-500 transition-colors hover:cursor-pointer"
+                          >
+                            ✕
+                          </button>
+                        </Badge>
+                      )}
+                    </For>
+                  </div>
+                </Show>
               </div>
             )}
           </form.Field>
 
-          {/* GitHub URL Field */}
-          <form.Field name="githubUrl">
-            {(field) => (
-              <div class="space-y-2">
+          {/* Row 4: GitHub + Live URL side by side */}
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <form.Field name="githubUrl">
+              {(field) => (
                 <TextField
                   name={field().name}
                   value={field().state.value}
@@ -213,19 +209,17 @@ export function ProjectForm(props: ProjectFormProps) {
                 >
                   <TextFieldLabel for="githubUrl">GitHub URL</TextFieldLabel>
                   <TextFieldInput
+                    id="githubUrl"
                     type="url"
                     placeholder="https://github.com/username/repo"
                   />
                   <TextFieldErrorMessage errors={field().state.meta.errors} />
                 </TextField>
-              </div>
-            )}
-          </form.Field>
+              )}
+            </form.Field>
 
-          {/* Live URL Field */}
-          <form.Field name="liveUrl">
-            {(field) => (
-              <div class="space-y-2">
+            <form.Field name="liveUrl">
+              {(field) => (
                 <TextField
                   name={field().name}
                   value={field().state.value}
@@ -240,33 +234,32 @@ export function ProjectForm(props: ProjectFormProps) {
                   />
                   <TextFieldErrorMessage errors={field().state.meta.errors} />
                 </TextField>
-              </div>
-            )}
-          </form.Field>
+              )}
+            </form.Field>
+          </div>
 
-          {/* Image URL Field */}
-          <form.Field name="imageUrl">
-            {(field) => (
-              <TextField
-                validationState={
-                  field().state.meta.isTouched && !field().state.meta.isValid
-                    ? "invalid"
-                    : "valid"
-                }
-              >
-                <ImageUpload
-                  value={field().state.value}
-                  onChange={(url) => field().handleChange(url)}
-                />
-              </TextField>
-            )}
-          </form.Field>
+          {/* Row 5: Image upload + Featured toggle side by side */}
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-start">
+            <form.Field name="imageUrl">
+              {(field) => (
+                <TextField
+                  validationState={
+                    field().state.meta.isTouched && !field().state.meta.isValid
+                      ? "invalid"
+                      : "valid"
+                  }
+                >
+                  <ImageUpload
+                    value={field().state.value}
+                    onChange={(url) => field().handleChange(url)}
+                  />
+                </TextField>
+              )}
+            </form.Field>
 
-          {/* Featured Toggle */}
-          <form.Field name="featured">
-            {(field) => (
-              <div class="flex items-center justify-between p-4 border border-slate-700 rounded-lg">
-                <div class="space-y-0.5">
+            <form.Field name="featured">
+              {(field) => (
+                <div class="flex items-start p-4 border border-slate-700 rounded-lg h-full">
                   <TextField
                     validationState={
                       field().state.meta.isTouched &&
@@ -276,7 +269,7 @@ export function ProjectForm(props: ProjectFormProps) {
                     }
                   >
                     <Switch
-                      class="flex items-center gap-x-2 self-start"
+                      class="flex items-center gap-x-2"
                       name={field().name}
                       checked={field().state.value}
                       onChange={field().handleChange}
@@ -294,23 +287,19 @@ export function ProjectForm(props: ProjectFormProps) {
                     </Switch>
                   </TextField>
                 </div>
-              </div>
-            )}
-          </form.Field>
+              )}
+            </form.Field>
+          </div>
         </CardContent>
 
         <CardFooter class="flex gap-3 justify-end">
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() => navigate("/projects")}
-          >
+          <Button type="button" variant="outline" onClick={props.onCancel}>
             Cancel
           </Button>
-          <Button type="submit" disabled={false /* form.state.isSubmitting */}>
+          <Button type="submit" disabled={props.isSubmitting ?? false}>
             <Show
-              when={false /* form.state.isSubmitting */}
-              fallback={props.submitLabel}
+              when={props.isSubmitting}
+              fallback={props.submitLabel ?? "Save"}
             >
               <svg
                 class="animate-spin -ml-1 mr-2 h-4 w-4"
@@ -332,7 +321,7 @@ export function ProjectForm(props: ProjectFormProps) {
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                 />
               </svg>
-              Creating...
+              Saving...
             </Show>
           </Button>
         </CardFooter>

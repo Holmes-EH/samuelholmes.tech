@@ -31,7 +31,7 @@ export default function Dashboard() {
     <div class="space-y-8">
       {/* Welcome Section */}
       <div>
-        <h1 class="text-3xl font-bold text-slate-100 mb-2">
+        <h1 class="text-3xl font-bold text-secondary-foreground mb-2">
           Welcome back,{" "}
           <span class="text-primary">{user()?.name || "Admin"}</span>
         </h1>

@@ -44,7 +44,7 @@ render(
           <App />
         </AuthProvider>
       </ToastProvider>
-      <SolidQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
+      <SolidQueryDevtools initialIsOpen={false} buttonPosition="top-right" />
     </QueryClientProvider>
   ),
   wrapper,

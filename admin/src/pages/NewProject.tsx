@@ -26,9 +26,8 @@ export default function NewProject() {
   };
 
   return (
-    <div class="mx-auto min-w-2xl">
-      {/* Header */}
-      <div class="flex items-center justify-between">
+    <div class="max-w-5xl mx-auto space-y-6">
+      <div>
         <h1 class="text-3xl font-bold text-slate-100">Create New Project</h1>
         <p class="text-slate-400 mt-1">Add a new project to your portfolio</p>
       </div>

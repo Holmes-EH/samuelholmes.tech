@@ -29,6 +29,7 @@
     "vite-plugin-solid": "^2.11.8"
   },
   "dependencies": {
+    "@corvu/drawer": "^0.2.4",
     "@kobalte/core": "^0.13.11",
     "@solidjs/router": "^0.15.4",
     "@tanstack/solid-form": "^1.28.3",
@@ -36,6 +37,7 @@
     "cva": "^1.0.0-beta.4",
     "graphql": "^16.13.2",
     "graphql-request": "^7.4.0",
+    "lucide-solid": "^1.8.0",
     "solid-js": "^1.9.9",
     "somoto": "^0.0.2",
     "tailwind-merge": "^3.5.0",

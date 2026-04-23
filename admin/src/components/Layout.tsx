@@ -4,60 +4,29 @@ import {
   ColorModeScript,
   cookieStorageManagerSSR,
 } from "@kobalte/core";
-import ModeToggle from "@/components/ModeToggle";
 import { Toaster } from "@/components/ui/sonner";
-import { useAuth } from "@/contexts/AuthContext";
+import { SidebarProvider, SidebarTrigger } from "./ui/sidebar";
+import AppSidebar from "./AppSidebar";
 
 const Layout = (props: RouteSectionProps<unknown>) => {
   const storageManager = cookieStorageManagerSSR(document.cookie);
-  const { isAuthenticated, logout } = useAuth();
-  const location = useLocation();
-
-  // Don't show layout on login page
-  const isLoginPage = () => location.pathname === "/login";
 
   return (
-    <div class="h-[100vh] flex flex-col justify-center">
+    <SidebarProvider defaultOpen={false}>
       <ColorModeScript storageType={storageManager.type} />
       <ColorModeProvider storageManager={storageManager}>
-        <header class="flex justify-end">
-          {!isLoginPage() && isAuthenticated() && (
-            <nav class="container mx-auto px-4 py-4 flex items-center justify-between">
-              <div class="flex items-center gap-6">
-                <h1 class="text-xl font-bold text-primary">Admin Panel</h1>
-                <div class="flex gap-4">
-                  <A
-                    href="/"
-                    class="text-slate-300 hover:text-primary transition-colors"
-                  >
-                    Dashboard
-                  </A>
-                  <A
-                    href="/projects"
-                    class="text-slate-300 hover:text-primary transition-colors"
-                  >
-                    Projects
-                  </A>
-                </div>
-              </div>
-              <button
-                onClick={logout}
-                class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-100 rounded transition-colors"
-              >
-                Logout
-              </button>
-            </nav>
-          )}
-          <ModeToggle />
-        </header>
-        <main class="flex items-center justify-center flex-col grow">
-          {props.children}
+        <AppSidebar />
+        <main class="flex flex-col flex-1 min-w-0">
+          <div class="sticky top-0 z-10">
+            <SidebarTrigger class="bg-background" />
+          </div>
+          <div class="flex flex-col items-center justify-center flex-1 px-4 py-6">
+            {props.children}
+          </div>
         </main>
         <Toaster />
-
-        {/* <footer>Footer</footer> */}
       </ColorModeProvider>
-    </div>
+    </SidebarProvider>
   );
 };
 
