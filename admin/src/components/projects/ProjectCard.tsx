@@ -18,7 +18,6 @@ import { Project } from "@/generated/graphql";
 
 export function ProjectCard(props: { project: Project }) {
   const project = props.project;
-  console.log(project);
   return (
     <Card class="group hover:border-primary transition-colors min-w-2xs flex flex-col justify-between">
       <CardHeader>
