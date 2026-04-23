@@ -66,7 +66,9 @@ const Stats: Component<MyProps> = (props) => {
             </div>
           </CardHeader>
           <CardContent>
-            <div class="text-3xl font-bold text-slate-100">{stat.value}</div>
+            <div class="text-3xl font-bold text-secondary-foreground">
+              {stat.value}
+            </div>
             <p class="text-xs text-slate-500 mt-1">{stat.description}</p>
           </CardContent>
         </Card>

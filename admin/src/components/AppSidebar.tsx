@@ -10,7 +10,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { useAuth } from "@/contexts/AuthContext";
-import { A, useLocation } from "@solidjs/router";
+import { A } from "@solidjs/router";
 import ModeToggle from "./ModeToggle";
 import LayoutDashboard from "lucide-solid/icons/layout-dashboard";
 import Folder from "lucide-solid/icons/folder";
@@ -18,8 +18,6 @@ import LogOut from "lucide-solid/icons/log-out";
 
 const AppSidebar = () => {
   const { isAuthenticated, logout, user } = useAuth();
-  const location = useLocation();
-  const isLoginPage = () => location.pathname === "/login";
 
   return (
     <Sidebar collapsible="icon">
@@ -62,7 +60,7 @@ const AppSidebar = () => {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton
-                class="hover:text-primary transition-colors cursor-pointer bg-slate-800 hover:bg-slate-700"
+                class="text-slate-100 hover:text-primary transition-colors cursor-pointer bg-slate-800 hover:bg-slate-700"
                 tooltip="Logout"
                 onClick={logout}
               >

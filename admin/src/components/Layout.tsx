@@ -10,15 +10,17 @@ import AppSidebar from "./AppSidebar";
 
 const Layout = (props: RouteSectionProps<unknown>) => {
   const storageManager = cookieStorageManagerSSR(document.cookie);
+  const location = useLocation();
+  const isLoginPage = () => location.pathname === "/login";
 
   return (
     <SidebarProvider defaultOpen={false}>
       <ColorModeScript storageType={storageManager.type} />
       <ColorModeProvider storageManager={storageManager}>
-        <AppSidebar />
+        {!isLoginPage() && <AppSidebar />}
         <main class="flex flex-col flex-1 min-w-0">
           <div class="sticky top-0 z-10">
-            <SidebarTrigger class="bg-background" />
+            {!isLoginPage() && <SidebarTrigger class="bg-background" />}
           </div>
           <div class="flex flex-col items-center justify-center flex-1 px-4 py-6">
             {props.children}
