@@ -65,10 +65,22 @@ async fn main() {
         process::exit(1);
     };
 
-    let cors = CorsLayer::new()
-        .allow_origin(Any)
-        .allow_methods([Method::GET, Method::POST, Method::OPTIONS])
-        .allow_headers([header::AUTHORIZATION, header::ACCEPT, header::CONTENT_TYPE]);
+    let cors = {
+        let base = CorsLayer::new()
+            .allow_methods([Method::GET, Method::POST, Method::OPTIONS])
+            .allow_headers([header::AUTHORIZATION, header::ACCEPT, header::CONTENT_TYPE]);
+
+        match std::env::var("CORS_ALLOWED_ORIGINS") {
+            Ok(origins) if !origins.trim().is_empty() => {
+                let parsed: Vec<axum::http::HeaderValue> = origins
+                    .split(',')
+                    .filter_map(|s| s.trim().parse().ok())
+                    .collect();
+                base.allow_origin(parsed).allow_credentials(true)
+            }
+            _ => base.allow_origin(Any),
+        }
+    };
 
     let schema = build_schema(db_pool);
     let app = Router::new()
@@ -79,7 +91,7 @@ async fn main() {
         .layer(Extension(schema))
         .layer(middleware::from_fn(extract_user_id_from_token));
 
-    let address = "127.0.0.1:8000";
+    let address = std::env::var("BIND_ADDR").unwrap_or_else(|_| "0.0.0.0:8000".to_string());
 
     let listener = match TcpListener::bind(address).await {
         Ok(tcp_listener) => tcp_listener,
