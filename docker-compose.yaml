@@ -1,15 +1,108 @@
+# Dokploy-ready compose for samuelholmes.tech
+#
+# Subdomains:
+#   samuelholmes.tech       -> frontend (Astro)
+#   admin.samuelholmes.tech -> admin (SolidJS SPA)
+#   api.samuelholmes.tech   -> backend (Rust/Axum)
+#
+# All env vars come from Dokploy's per-service env UI — do NOT commit a .env.
+
 services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgres://portfolio:${DB_PASSWORD}@postgres:5432/portfolio
+      JWT_SECRET: ${JWT_SECRET}
+      SEED_USER: ${SEED_USER}
+      SEED_EMAIL: ${SEED_EMAIL}
+      SEED_PASS: ${SEED_PASS}
+      BIND_ADDR: 0.0.0.0:8000
+      UPLOAD_DIR: /app/uploads/images
+    volumes:
+      - uploads:/app/uploads
+    expose:
+      - "8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - dokploy-network
+      - internal
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.portfolio-backend.rule=Host(`api.samuelholmes.tech`)
+      - traefik.http.routers.portfolio-backend.entrypoints=websecure
+      - traefik.http.routers.portfolio-backend.tls.certresolver=letsencrypt
+      - traefik.http.services.portfolio-backend.loadbalancer.server.port=8000
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      args:
+        API_URL: https://api.samuelholmes.tech
+    restart: unless-stopped
+    expose:
+      - "80"
+    networks:
+      - dokploy-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.portfolio-frontend.rule=Host(`samuelholmes.tech`) || Host(`www.samuelholmes.tech`)
+      - traefik.http.routers.portfolio-frontend.entrypoints=websecure
+      - traefik.http.routers.portfolio-frontend.tls.certresolver=letsencrypt
+      - traefik.http.services.portfolio-frontend.loadbalancer.server.port=80
+      # www -> apex redirect
+      - traefik.http.middlewares.www-redirect.redirectregex.regex=^https?://www\.samuelholmes\.tech/(.*)
+      - traefik.http.middlewares.www-redirect.redirectregex.replacement=https://samuelholmes.tech/$${1}
+      - traefik.http.middlewares.www-redirect.redirectregex.permanent=true
+      - traefik.http.routers.portfolio-frontend.middlewares=www-redirect
+
+  admin:
+    build:
+      context: .
+      dockerfile: admin/Dockerfile
+      args:
+        VITE_BACKEND_URL: https://api.samuelholmes.tech
+    restart: unless-stopped
+    expose:
+      - "80"
+    networks:
+      - dokploy-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.portfolio-admin.rule=Host(`admin.samuelholmes.tech`)
+      - traefik.http.routers.portfolio-admin.entrypoints=websecure
+      - traefik.http.routers.portfolio-admin.tls.certresolver=letsencrypt
+      - traefik.http.services.portfolio-admin.loadbalancer.server.port=80
+
   postgres:
     image: postgres:16-alpine
-    container_name: portfolio-db
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
     environment:
       POSTGRES_DB: portfolio
       POSTGRES_USER: portfolio
       POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U portfolio"]
+      test: ["CMD-SHELL", "pg_isready -U portfolio -d portfolio"]
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - internal
+
+volumes:
+  postgres_data:
+  uploads:
+
+networks:
+  # External network created by Dokploy — Traefik lives here.
+  dokploy-network:
+    external: true
+  # Private network for backend <-> postgres only; not exposed to Traefik.
+  internal:

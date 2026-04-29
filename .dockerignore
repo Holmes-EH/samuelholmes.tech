@@ -1,24 +1,46 @@
-# Rust ignores
-
+# Rust
 target/
-Cargo.lock
 *.rs.bk
-.git
-.env
-*.db
 
-# Bun ignores
+# UIs
+**/node_modules/
+**/dist/
+**/.next/
+**/.astro/
+**/.bun/
 
-node_modules/
-Dockerfile*
-docker-compose*
-.dockerignore
+# Bun cache
+.bun/
+
+# Editor / OS
 .git
 .gitignore
-README.md
-LICENSE
+.dockerignore
 .vscode
 .editorconfig
 .idea
-coverage*
+.DS_Store
+
+# Env / secrets — never bake into images
 .env
+.env.*
+!.env.example
+
+# Local dev artifacts
+db-data/
+uploads/
+coverage*
+*.log
+
+# Docker / compose itself
+Dockerfile*
+docker-compose*
+compose*.yaml
+compose*.yml
+
+# Docs
+README.md
+LICENSE
+**/AGENTS.md
+
+# Keep .sqlx for SQLX_OFFLINE builds — do NOT ignore it.
