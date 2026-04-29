@@ -28,7 +28,6 @@ yarn-error.log*
 .next
 # Rust/Python/General ignores
 target/
-Cargo.lock
 **/*.rs.bk
 .DS_Store
 *.log
