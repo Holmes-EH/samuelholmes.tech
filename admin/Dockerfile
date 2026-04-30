@@ -1,11 +1,11 @@
 FROM oven/bun:1 AS builder
-WORKDIR /app
 
-# Build-time backend URL — Vite inlines it into the bundle.
 ARG VITE_BACKEND_URL
 ENV VITE_BACKEND_URL=${VITE_BACKEND_URL}
 
-COPY admin/ ./
+WORKDIR /app
+
+COPY admin ./
 RUN bun install --frozen-lockfile
 
 RUN bun run build
