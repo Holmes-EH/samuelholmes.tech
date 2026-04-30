@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1.7
-
 # ---- planner: compute dep recipe ----
 FROM rust:1-bookworm AS chef
 RUN cargo install cargo-chef --locked
@@ -26,9 +24,9 @@ RUN cargo build --release --bin backend
 # ---- runtime: slim image with just the binary ----
 FROM debian:bookworm-slim AS runtime
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends ca-certificates libssl3 \
-    && rm -rf /var/lib/apt/lists/* \
-    && useradd -r -u 1001 -m app
+  && apt-get install -y --no-install-recommends ca-certificates libssl3 \
+  && rm -rf /var/lib/apt/lists/* \
+  && useradd -r -u 1001 -m app
 
 WORKDIR /app
 COPY --from=builder /app/target/release/backend /usr/local/bin/backend
@@ -38,6 +36,6 @@ RUN mkdir -p /app/uploads/images && chown -R app:app /app
 
 USER app
 ENV BIND_ADDR=0.0.0.0:8000 \
-    UPLOAD_DIR=/app/uploads/images
+  UPLOAD_DIR=/app/uploads/images
 EXPOSE 8000
 CMD ["backend"]
