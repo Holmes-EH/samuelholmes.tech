@@ -1,8 +1,8 @@
-name: Build Admin Docker image
+name: Build Backend Docker image
 on:
   push:
     paths:
-      - "admin/**"
+      - "backend/**"
     branches:
       - main
       - v2
@@ -36,10 +36,10 @@ jobs:
         uses: docker/build-push-action@v7
         with:
           context: .
-          file: admin/Dockerfile
+          file: backend/Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/portfolio-admin:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/portfolio-backend:latest
           cache-from: type=local,src=/tmp/.buildx-cache
       #
       # - name: Trigger deployment via webhook
