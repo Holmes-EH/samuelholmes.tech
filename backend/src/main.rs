@@ -93,7 +93,7 @@ async fn main() {
 
     let address = std::env::var("BIND_ADDR").unwrap_or_else(|_| "0.0.0.0:8000".to_string());
 
-    let listener = match TcpListener::bind(address).await {
+    let listener = match TcpListener::bind(address.clone()).await {
         Ok(tcp_listener) => tcp_listener,
         Err(err) => {
             log_error(format!("error listening on 127.0.0.1:8000: {err}"));
