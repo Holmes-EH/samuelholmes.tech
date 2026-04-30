@@ -1,14 +1,13 @@
 FROM oven/bun:1 AS builder
-WORKDIR /app
 
-# Build-time API URL — passed via compose build.args.
 ARG API_URL
 ENV API_URL=${API_URL}
 
-COPY frontend/package.json frontend/bun.lock ./
-RUN bun install --frozen-lockfile
+WORKDIR /app
 
 COPY frontend/ ./
+RUN bun install --frozen-lockfile
+
 RUN bun run build
 
 FROM nginx:1.27-alpine AS runtime
