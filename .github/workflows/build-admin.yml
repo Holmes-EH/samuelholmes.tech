@@ -38,7 +38,7 @@ jobs:
       - name: Build and push production image
         uses: docker/build-push-action@v7
         with:
-          build-args:
+          build-args: |
             VITE_BACKEND_URL: ${{ vars.API_URL }}
           context: .
           file: admin/Dockerfile
