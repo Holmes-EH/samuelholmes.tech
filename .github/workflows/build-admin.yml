@@ -16,6 +16,9 @@ jobs:
         with:
           fetch-depth: 0 # Fetches full history for better caching/context
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
 
@@ -34,9 +37,9 @@ jobs:
 
       - name: Build and push production image
         uses: docker/build-push-action@v7
-        env:
-          VITE_BACKEND_URL: ${{ vars.API_URL }}
         with:
+          build-args:
+            VITE_BACKEND_URL: ${{ vars.API_URL }}
           context: .
           file: admin/Dockerfile
           push: true

@@ -34,11 +34,11 @@ jobs:
 
       - name: Build and push production image
         uses: docker/build-push-action@v7
-        env:
-          API_URL: ${{ vars.API_URL }}
         with:
           context: .
           file: frontend/Dockerfile
+          build-args:
+            API_URL: ${{ vars.API_URL }}
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/portfolio-frontend:latest
